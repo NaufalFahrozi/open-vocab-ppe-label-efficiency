@@ -1,0 +1,28 @@
+# Besar atau bisa dibuat ulang; lisensi dataset punya syarat sendiri
+.venv/
+data/*
+!data/splits/
+!data/yaml/
+data/splits/arsip_fewshot_lama/
+weights/
+runs/
+results/preds/
+results/dedup_embedding.npz
+results/berhenti.flag
+.claude/
+__pycache__/
+*.pyc
+*.pt
+*.jpg
+*.png
+!results/hasil/*.png
+results/arsip_uji_kelayakan/preds/
+
+# Repo public: jangan pernah menerbitkan foto dataset, log berisi path pribadi, atau catatan sesi
+*.jpg
+*.jpeg
+results/logs/
+results/arsip_uji_kelayakan/
+results/uji_kecil/
+results/dedup_embedding.csv
+CLAUDE.md

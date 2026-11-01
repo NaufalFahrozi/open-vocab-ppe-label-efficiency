@@ -1,0 +1,15 @@
+split_a,img_a,split_b,img_b,hamming
+train,pexels-photo-4353604.jpeg,test,pexels-photo-4353602.jpeg,6
+train,pexels-photo-5324884.jpeg,train,pexels-photo-5324880.jpeg,6
+train,pexels-photo-4820783.jpeg,train,pexels-photo-4820775.jpeg,4
+train,pexels-photo-4559740.jpeg,test,pexels-photo-4559736.jpeg,2
+train,pexels-photo-6129974.jpeg,train,pexels-photo-6129962.jpeg,6
+train,pexels-photo-9363150.jpeg,train,pexels-photo-9363116.jpeg,6
+train,pexels-photo-7014670.jpeg,test,pexels-photo-7014669.jpeg,6
+train,pexels-photo-14189337.jpeg,train,pexels-photo-14189341.jpeg,4
+train,pexels-photo-4483611.jpeg,train,pexels-photo-4483614.jpeg,4
+train,pexels-photo-4021819.jpeg,test,pexels-photo-4021816.jpeg,6
+train,pexels-photo-6140132.jpeg,test,pexels-photo-6140134.jpeg,4
+train,pexels-photo-4473496.jpeg,test,pexels-photo-4473489.jpeg,6
+train,pexels-photo-8204944.jpeg,train,pexels-photo-8204945.jpeg,4
+test,pexels-photo-4307821.jpeg,test,pexels-photo-4307818.jpeg,6

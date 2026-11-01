@@ -1,0 +1,161 @@
+{
+  "tag": "full_seed0_yolo26s_ujires2",
+  "mAP50": 0.448222,
+  "mAP50-95": 0.277915,
+  "recall_pelanggaran_mean": 0.625155,
+  "per_class": {
+    "person": {
+      "P": 0.819999,
+      "R": 0.91731,
+      "AP50": 0.930375,
+      "AP50-95": 0.743897
+    },
+    "ear": {
+      "P": 0.708634,
+      "R": 0.698039,
+      "AP50": 0.704281,
+      "AP50-95": 0.403769
+    },
+    "ear-mufs": {
+      "P": 0.529167,
+      "R": 0.065278,
+      "AP50": 0.185079,
+      "AP50-95": 0.123889
+    },
+    "face": {
+      "P": 0.822777,
+      "R": 0.831933,
+      "AP50": 0.857319,
+      "AP50-95": 0.598969
+    },
+    "face-guard": {
+      "P": 0.617397,
+      "R": 0.170438,
+      "AP50": 0.188373,
+      "AP50-95": 0.109177
+    },
+    "face-mask": {
+      "P": 0.526562,
+      "R": 0.35,
+      "AP50": 0.387656,
+      "AP50-95": 0.222898
+    },
+    "foot": {
+      "P": 0.281725,
+      "R": 0.176471,
+      "AP50": 0.110332,
+      "AP50-95": 0.041285
+    },
+    "tool": {
+      "P": 0.311154,
+      "R": 0.203431,
+      "AP50": 0.152527,
+      "AP50-95": 0.08428
+    },
+    "glasses": {
+      "P": 0.400642,
+      "R": 0.372022,
+      "AP50": 0.339126,
+      "AP50-95": 0.151947
+    },
+    "gloves": {
+      "P": 0.55482,
+      "R": 0.447237,
+      "AP50": 0.460798,
+      "AP50-95": 0.267759
+    },
+    "helmet": {
+      "P": 0.550918,
+      "R": 0.494382,
+      "AP50": 0.516201,
+      "AP50-95": 0.255166
+    },
+    "hands": {
+      "P": 0.681993,
+      "R": 0.794177,
+      "AP50": 0.807638,
+      "AP50-95": 0.510727
+    },
+    "head": {
+      "P": 0.837046,
+      "R": 0.883063,
+      "AP50": 0.91009,
+      "AP50-95": 0.644763
+    },
+    "medical-suit": {
+      "P": 1.0,
+      "R": 0.0,
+      "AP50": 0.139334,
+      "AP50-95": 0.065873
+    },
+    "shoes": {
+      "P": 0.58991,
+      "R": 0.552448,
+      "AP50": 0.547593,
+      "AP50-95": 0.289367
+    },
+    "safety-suit": {
+      "P": 0.0,
+      "R": 0.0,
+      "AP50": 0.062305,
+      "AP50-95": 0.034265
+    },
+    "safety-vest": {
+      "P": 0.464825,
+      "R": 0.412737,
+      "AP50": 0.32074,
+      "AP50-95": 0.176517
+    }
+  },
+  "speed_ms_per_img": {
+    "preprocess": 0.66,
+    "inference": 6.69,
+    "loss": 0.0,
+    "postprocess": 0.91
+  },
+  "val_time_s": 8.1,
+  "val_peak_vram_GB": 0.81,
+  "evaluator": "ultralytics.val",
+  "eval_imgsz": 640,
+  "model": "yolo26",
+  "size": "s",
+  "skenario": "full",
+  "k": null,
+  "seed": 0,
+  "n_train_images": 4986,
+  "n_train_list": 4986,
+  "fewshot_summary": null,
+  "eval_split": "dev",
+  "workers": 1,
+  "resumed": true,
+  "nbs": 64,
+  "batch": 16,
+  "epochs_planned": 2,
+  "epochs": 2,
+  "steps": 624,
+  "weight_updates_approx": 156,
+  "optimizer": "MuSGD",
+  "lr0_actual": 0.03,
+  "trainable_params": 9961022,
+  "total_params": 9961022,
+  "train_time_min": 1.94,
+  "train_peak_vram_GB": 5.14,
+  "train_telemetry": {
+    "ac_power": true,
+    "battery_percent": 77,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 86.662,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 55.8,
+    "gpu_power_W_max": 81.7,
+    "gpu_sm_clock_MHz_mean": 2314.7,
+    "gpu_temp_C_max": 78,
+    "gpu_util_pct_mean": 72.3,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 94.229,
+    "ram_free_GB_min": 3.45,
+    "gpu_mem_used_GB_max": 5.47,
+    "commit_free_GB_min": 23.47,
+    "n_samples": 116
+  }
+}

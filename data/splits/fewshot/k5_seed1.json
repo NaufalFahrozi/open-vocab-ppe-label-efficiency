@@ -1,0 +1,27 @@
+{
+  "k": 5,
+  "seed": 1,
+  "n_images": 20,
+  "n_boxes": 276,
+  "ulang": 2,
+  "kelas_kurang": {},
+  "instances_per_class": {
+    "person": 46,
+    "ear": 29,
+    "ear-mufs": 5,
+    "face": 16,
+    "face-guard": 5,
+    "face-mask": 11,
+    "foot": 6,
+    "tool": 8,
+    "glasses": 5,
+    "gloves": 17,
+    "helmet": 16,
+    "hands": 29,
+    "head": 44,
+    "medical-suit": 5,
+    "shoes": 20,
+    "safety-suit": 5,
+    "safety-vest": 9
+  }
+}
