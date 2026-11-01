@@ -61,11 +61,12 @@ Ini hasil validasi pipeline, **bukan hasil penelitian**:
 
 ## Dibangun untuk listrik yang suka mati
 
-Seluruh eksperimen jalan di satu laptop RTX 4050 6 GB, di kota yang sering mati listrik. Antreannya dirancang supaya tahan banting, dan jalur-jalur ini sudah diuji:
+Seluruh eksperimen jalan di satu laptop RTX 4050 6 GB, di kota yang sering mati listrik. Antreannya dirancang supaya tahan banting:
 
-- **Lanjut dari epoch terakhir** setelah dihentikan paksa, memakai cadangan kalau `last.pt` rusak
-- **Pantau charger:** kalau listrik hilang, job dimatikan dengan rapi lalu diulang saat listrik kembali
-- **Deteksi macet dan jeda rapi:** run yang menggantung diulang otomatis, dan `--jeda` menghentikan antrean tanpa merusak hasil
+- **Lanjut dari epoch terakhir** setelah dihentikan paksa, memakai cadangan kalau `last.pt` rusak (diuji dengan file yang sengaja dirusak)
+- **Jeda rapi:** `--jeda` menghentikan antrean tanpa merusak hasil (diuji)
+- **Pantau charger:** kalau listrik hilang, job dimatikan lalu diulang saat listrik kembali (baru diuji lewat simulasi)
+- **Deteksi macet:** run yang menggantung diulang otomatis (terpasang, belum pernah terpicu dalam kondisi nyata)
 
 ## Protokol singkat
 
