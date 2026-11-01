@@ -350,10 +350,11 @@ def main():
 
     # 7. Pelanggaran kepala tanpa helm
     rows = [[r.get("pelanggaran"), r.get("pendekatan"), r.get("model"), r.get("prompt", "–"), r.get("n_gt"),
-             num(r["mAP50"]), num(r["mAP50-95"]), num(r.get("R"))] for t, r in vio.items() if t.startswith("cppe_")]
+             num(r["mAP50"]), num(r["AP_longgar"]) if "AP_longgar" in r else "–", num(r["mAP50-95"]), num(r.get("R"))]
+            for t, r in vio.items() if t.startswith("cppe_")]
     if rows:
         md += ["## 7b. Pelanggaran dengan label asli Construction-PPE", "",
-               table(["Kelas", "Pendekatan", "Model / run", "Prompt", "Kotak GT", "AP50", "AP50-95", "Recall"], rows), ""]
+               table(["Kelas", "Pendekatan", "Model / run", "Prompt", "Kotak GT", "AP50", "AP longgar", "AP50-95", "Recall"], rows), ""]
     vio = {t: r for t, r in vio.items() if not t.startswith("cppe_")}
     rows = [[r.get("pendekatan"), r.get("model"), r.get("prompt", "–"), num(r["mAP50"]), num(r["mAP50-95"]),
              num(r.get("R"))] for t, r in vio.items()]

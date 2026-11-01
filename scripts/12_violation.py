@@ -19,6 +19,10 @@ di SH17) vs prompt "hand without gloves". Sebelum dipakai, `12_violation.py cek`
 kotak no_helmet untuk memastikan ukurannya memang seukuran kepala, karena aturan asosiasi
 membandingkan kotak kepala.
 
+Hasil cek: 73% kotak no_helmet berbentuk pita (tinggi/lebar < 0,8), sering hanya bagian atas kepala,
+sedangkan head SH17 setinggi kepala utuh. Maka no_helmet juga dinilai dengan AP longgar (ap_longgar),
+dikunci sebelum AP pelanggaran Construction-PPE dilihat. AP50 biasa tetap dilaporkan.
+
 Catatan untuk pembahasan: banyak gambar SH17 bukan lokasi wajib helm (kantor, lab), jadi
 "kepala tanpa helm" di sini adalah tugas deteksi, belum tentu pelanggaran sesungguhnya.
 """
@@ -32,7 +36,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
 from common import PROMPTS, RESULTS, ROOT, RUNS, SH17_NAMES, SPLITS  # noqa: E402
-from detmetrics import compute_metrics, load_gt, ultralytics_predictions  # noqa: E402
+from detmetrics import MAX_DET, MIN_CONF, compute_metrics, load_gt, ultralytics_predictions  # noqa: E402
 from evalutil import save_result  # noqa: E402
 from telemetry import keep_awake  # noqa: E402
 
@@ -40,6 +44,7 @@ HEAD, HELMET, HANDS = SH17_NAMES.index("head"), SH17_NAMES.index("helmet"), SH17
 CPPE_NO_HELMET, CPPE_NO_GLOVES = 7, 9
 OUT = RESULTS / "runs_violation"
 NAMES = ["kepala tanpa helm"]
+IOA_MIN, LUAS_MAKS = 0.7, 4.0  # AP longgar: >= 70% kotak label di dalam prediksi, luas prediksi <= 4 kali label
 
 
 def ioa(heads, helmets):
@@ -84,9 +89,40 @@ def load_npz(tag):
     return {paths[k]: (v[:, :4], v[:, 4], v[:, 5]) for k, v in d.items()}
 
 
+def ap_longgar(preds, gt):
+    """AP satu kelas dengan pencocokan longgar, satu lawan satu, urut skor tertinggi per gambar."""
+    from ultralytics.utils.metrics import compute_ap
+    tp, conf = [], []
+    n_gt = sum(len(v[0]) for v in gt.values())
+    for img, (gb, _, _) in gt.items():
+        pb, ps, _ = preds.get(img, (np.zeros((0, 4)), np.zeros(0), None))
+        order = np.argsort(-ps, kind="stable")[:MAX_DET]
+        order = order[ps[order] >= MIN_CONF]
+        pakai = np.zeros(len(gb), dtype=bool)
+        for b, s in zip(pb[order], ps[order]):
+            cocok = False
+            if len(gb):
+                nilai = ioa(b[None], gb)[0]  # fraksi tiap kotak label di dalam prediksi
+                luas_p = (b[2] - b[0]) * (b[3] - b[1])
+                luas_g = (gb[:, 2] - gb[:, 0]) * (gb[:, 3] - gb[:, 1])
+                nilai[pakai | (nilai < IOA_MIN) | (luas_p > LUAS_MAKS * luas_g)] = -1
+                j = int(nilai.argmax())
+                if nilai[j] >= 0:
+                    pakai[j] = cocok = True
+            tp.append(cocok)
+            conf.append(s)
+    if not n_gt or not tp:
+        return 0.0
+    urut = np.argsort(-np.array(conf), kind="stable")
+    tpc = np.cumsum(np.array(tp)[urut])
+    return float(compute_ap(tpc / n_gt, tpc / np.arange(1, len(tpc) + 1))[0])
+
+
 def score(preds, gt, tag, extra):
     m = compute_metrics(preds, gt, NAMES)
     p, r, ap50, ap = (float(x) for x in m.box.class_result(0))
+    if extra.get("pelanggaran") == "no_helmet":
+        extra = {**extra, "AP_longgar": round(ap_longgar(preds, gt), 6)}
     return save_result({"tag": tag, "mAP50": round(ap50, 6), "mAP50-95": round(ap, 6),
                         "P": round(p, 6), "R": round(r, 6), "recall_pelanggaran_mean": None,
                         "per_class": {}, **extra}, OUT)

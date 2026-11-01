@@ -142,6 +142,17 @@ Hasil lengkap ada di `results/hasil/gerbang.md`. Keputusan dan temuan:
 
 **Gerbang 1: lolos setelah batas RAM diturunkan oleh Nopal.** RAM bebas terendah 2,91 GB terhadap batas 3,0 GB, pada uji satu epoch data penuh YOLOE. Run lain 3,3 GB ke atas. Sisa commit tetap ±23 GB. Setelah melihat angka ini, Nopal memutuskan batas RAM boleh lebih rendah dan menulis "gas" (1 November 2026). Batas di `15_gate.py` menjadi 2,5 GB. Perubahan ini soal keamanan perangkat, tidak menyentuh metrik penelitian.
 
+## Keputusan `no_helmet` sebelum Tahap 3 (1 November 2026)
+
+Diukur sebelum AP pelanggaran Construction-PPE dilihat. 73% kotak `no_helmet` lebih lebar daripada tingginya (rasio
+tinggi/lebar median 0,65), sedangkan kepala tanpa helm SH17 3% (median 1,26). Dengan YOLO26s k = 30 seed 0, 32% kotak
+`no_helmet` berada ≥ 70% di dalam prediksi kepala tetapi IoU-nya < 0,5; di SH17 hanya 1%. YOLOE-26s zero-shot 24% vs 4%.
+
+Keputusan: AP50 dan AP50-95 tetap dilaporkan sesuai protokol, ditambah **AP longgar untuk `no_helmet`**. Prediksi cocok
+kalau ≥ 70% kotak label berada di dalam prediksi dan luas prediksi ≤ 4 kali luas label, satu lawan satu. Berlaku sama
+untuk aturan asosiasi dan prompt negasi. Angka 4 kali adalah penilaian, belum diuji. `no_gloves` tidak memakainya:
+bentuk kotaknya beragam (median 0,85), wajar untuk tangan dengan arah apa pun. Kriteria G4 tidak berubah.
+
 ## Kriteria gerbang
 
 `scripts/15_gate.py` menghitung kriteria 1–3 otomatis dan menulis `results/hasil/gerbang.md`.
