@@ -1,0 +1,154 @@
+{
+  "tag": "zeroshot_det_yoloe-26l",
+  "mAP50": 0.423783,
+  "mAP50-95": 0.252745,
+  "recall_pelanggaran_mean": 0.05168,
+  "per_class": {
+    "person": {
+      "P": 0.676094,
+      "R": 0.964887,
+      "AP50": 0.927222,
+      "AP50-95": 0.767606
+    },
+    "ear": {
+      "P": 0.91787,
+      "R": 0.083196,
+      "AP50": 0.317627,
+      "AP50-95": 0.161132
+    },
+    "ear-mufs": {
+      "P": 0.414932,
+      "R": 0.061224,
+      "AP50": 0.077222,
+      "AP50-95": 0.053389
+    },
+    "face": {
+      "P": 0.802276,
+      "R": 0.072237,
+      "AP50": 0.428395,
+      "AP50-95": 0.181886
+    },
+    "face-guard": {
+      "P": 0.590205,
+      "R": 0.125,
+      "AP50": 0.115,
+      "AP50-95": 0.06575
+    },
+    "face-mask": {
+      "P": 0.329628,
+      "R": 0.708609,
+      "AP50": 0.620009,
+      "AP50-95": 0.317329
+    },
+    "foot": {
+      "P": 0.262065,
+      "R": 0.013423,
+      "AP50": 0.020775,
+      "AP50-95": 0.00981
+    },
+    "tool": {
+      "P": 0.26504,
+      "R": 0.36403,
+      "AP50": 0.218996,
+      "AP50-95": 0.124304
+    },
+    "glasses": {
+      "P": 0.435668,
+      "R": 0.831658,
+      "AP50": 0.759792,
+      "AP50-95": 0.405348
+    },
+    "gloves": {
+      "P": 0.615007,
+      "R": 0.604915,
+      "AP50": 0.60687,
+      "AP50-95": 0.373044
+    },
+    "helmet": {
+      "P": 0.476122,
+      "R": 0.850649,
+      "AP50": 0.758449,
+      "AP50-95": 0.551223
+    },
+    "hands": {
+      "P": 0.903425,
+      "R": 0.037862,
+      "AP50": 0.500964,
+      "AP50-95": 0.24103
+    },
+    "head": {
+      "P": 0.82208,
+      "R": 0.36172,
+      "AP50": 0.617339,
+      "AP50-95": 0.322499
+    },
+    "medical-suit": {
+      "P": 0.105114,
+      "R": 0.395349,
+      "AP50": 0.134019,
+      "AP50-95": 0.094245
+    },
+    "shoes": {
+      "P": 0.6644,
+      "R": 0.701883,
+      "AP50": 0.698842,
+      "AP50-95": 0.382846
+    },
+    "safety-suit": {
+      "P": 0.0675,
+      "R": 0.022222,
+      "AP50": 0.021699,
+      "AP50-95": 0.010446
+    },
+    "safety-vest": {
+      "P": 0.513227,
+      "R": 0.402062,
+      "AP50": 0.381091,
+      "AP50-95": 0.234778
+    }
+  },
+  "model": "yoloe-26l",
+  "skenario": "zero-shot",
+  "prompts": [
+    "person",
+    "ear",
+    "earmuffs",
+    "face",
+    "face guard",
+    "face mask",
+    "foot",
+    "tool",
+    "glasses",
+    "gloves",
+    "helmet",
+    "hands",
+    "head",
+    "medical suit",
+    "shoes",
+    "safety suit",
+    "safety vest"
+  ],
+  "evaluator": "detmetrics",
+  "n_images": 1620,
+  "infer_time_s": 59.1,
+  "infer_ms_per_img_incl_io": 36.5,
+  "infer_peak_vram_GB": 2.59,
+  "telemetry": {
+    "ac_power": true,
+    "battery_percent": 77,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 81.054,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 50.2,
+    "gpu_power_W_max": 58.2,
+    "gpu_sm_clock_MHz_mean": 2336.4,
+    "gpu_temp_C_max": 74,
+    "gpu_util_pct_mean": 60.3,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 82.468,
+    "ram_free_GB_min": 6.63,
+    "gpu_mem_used_GB_max": 2.9,
+    "commit_free_GB_min": 28.99,
+    "n_samples": 59
+  }
+}

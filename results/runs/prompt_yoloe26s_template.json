@@ -1,0 +1,133 @@
+{
+  "tag": "prompt_yoloe26s_template",
+  "mAP50": 0.32445,
+  "mAP50-95": 0.190024,
+  "recall_pelanggaran_mean": 0.118416,
+  "per_class": {
+    "person": {
+      "P": 0.927216,
+      "R": 0.545171,
+      "AP50": 0.72756,
+      "AP50-95": 0.570138
+    },
+    "ear": {
+      "P": 0.738269,
+      "R": 0.140199,
+      "AP50": 0.244242,
+      "AP50-95": 0.123036
+    },
+    "ear-mufs": {
+      "P": 0.018896,
+      "R": 0.163265,
+      "AP50": 0.012218,
+      "AP50-95": 0.007785
+    },
+    "face": {
+      "P": 0.657354,
+      "R": 0.122037,
+      "AP50": 0.323932,
+      "AP50-95": 0.116999
+    },
+    "face-guard": {
+      "P": 0.033268,
+      "R": 0.166667,
+      "AP50": 0.056727,
+      "AP50-95": 0.027819
+    },
+    "face-mask": {
+      "P": 0.264557,
+      "R": 0.622517,
+      "AP50": 0.422435,
+      "AP50-95": 0.235253
+    },
+    "foot": {
+      "P": 0.07776,
+      "R": 0.013423,
+      "AP50": 0.008104,
+      "AP50-95": 0.004517
+    },
+    "tool": {
+      "P": 0.154249,
+      "R": 0.348862,
+      "AP50": 0.130553,
+      "AP50-95": 0.07496
+    },
+    "glasses": {
+      "P": 0.599499,
+      "R": 0.620562,
+      "AP50": 0.589829,
+      "AP50-95": 0.298654
+    },
+    "gloves": {
+      "P": 0.550077,
+      "R": 0.434783,
+      "AP50": 0.420102,
+      "AP50-95": 0.251576
+    },
+    "helmet": {
+      "P": 0.559548,
+      "R": 0.688312,
+      "AP50": 0.568404,
+      "AP50-95": 0.410699
+    },
+    "hands": {
+      "P": 0.638772,
+      "R": 0.198007,
+      "AP50": 0.387652,
+      "AP50-95": 0.184098
+    },
+    "head": {
+      "P": 0.794841,
+      "R": 0.335228,
+      "AP50": 0.54081,
+      "AP50-95": 0.286939
+    },
+    "medical-suit": {
+      "P": 0.023262,
+      "R": 0.627907,
+      "AP50": 0.156725,
+      "AP50-95": 0.114213
+    },
+    "shoes": {
+      "P": 0.779122,
+      "R": 0.335766,
+      "AP50": 0.514174,
+      "AP50-95": 0.279477
+    },
+    "safety-suit": {
+      "P": 0.08265,
+      "R": 0.666667,
+      "AP50": 0.109754,
+      "AP50-95": 0.056073
+    },
+    "safety-vest": {
+      "P": 0.168305,
+      "R": 0.546392,
+      "AP50": 0.302428,
+      "AP50-95": 0.188171
+    }
+  },
+  "model": "yoloe-26s",
+  "skenario": "zero-shot",
+  "prompt_variant": "template",
+  "prompts": [
+    "a photo of a person",
+    "a photo of a ear",
+    "a photo of a earmuffs",
+    "a photo of a face",
+    "a photo of a face guard",
+    "a photo of a face mask",
+    "a photo of a foot",
+    "a photo of a tool",
+    "a photo of a glasses",
+    "a photo of a gloves",
+    "a photo of a helmet",
+    "a photo of a hands",
+    "a photo of a head",
+    "a photo of a medical suit",
+    "a photo of a shoes",
+    "a photo of a safety suit",
+    "a photo of a safety vest"
+  ],
+  "evaluator": "detmetrics"
+}

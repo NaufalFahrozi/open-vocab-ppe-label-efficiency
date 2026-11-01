@@ -145,17 +145,23 @@ def ac_on():
 
 
 def gpu_temp():
-    pynvml.nvmlInit()
-    t = pynvml.nvmlDeviceGetTemperature(pynvml.nvmlDeviceGetHandleByIndex(0), pynvml.NVML_TEMPERATURE_GPU)
-    pynvml.nvmlShutdown()
-    return t
+    try:
+        pynvml.nvmlInit()
+        t = pynvml.nvmlDeviceGetTemperature(pynvml.nvmlDeviceGetHandleByIndex(0), pynvml.NVML_TEMPERATURE_GPU)
+        pynvml.nvmlShutdown()
+        return t
+    except pynvml.NVMLError:  # gangguan baca sesaat tidak boleh mematikan antrean
+        return 0
 
 
 def gpu_util():
-    pynvml.nvmlInit()
-    u = pynvml.nvmlDeviceGetUtilizationRates(pynvml.nvmlDeviceGetHandleByIndex(0)).gpu
-    pynvml.nvmlShutdown()
-    return u
+    try:
+        pynvml.nvmlInit()
+        u = pynvml.nvmlDeviceGetUtilizationRates(pynvml.nvmlDeviceGetHandleByIndex(0)).gpu
+        pynvml.nvmlShutdown()
+        return u
+    except pynvml.NVMLError:  # anggap aktif; watchdog menilai lagi pada putaran berikutnya
+        return 100
 
 
 def kill_tree(proc):

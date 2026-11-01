@@ -278,7 +278,7 @@ def main():
         if any(fs.get((m, k)) for k in KS):
             md += [f"## 2d. Titik setara {nama} vs YOLO26", "",
                    table(["Kelompok", "k setara (selisih < 2 poin atau berbalik)"],
-                         [[n, k if k else f"belum ada sampai k = {KS[-1]}"] for n, k in setara]), ""]
+                         [[n, k if k else f"belum ada sampai k = {max(k for k in KS if fs.get((m, k)))}"] for n, k in setara]), ""]
 
     # 3. Uji berpasangan per k
     rows = []

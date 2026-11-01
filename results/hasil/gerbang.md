@@ -45,17 +45,60 @@ common.py: (64, 100) untuk yoloe-lp, (64, 100) untuk yolo26 dan yoloe-ft, batch 
 
 | Tahap | Jam |
 |---|---|
-| tahap2 | 4,0 |
-| tahap3 | 12,5 |
+| tahap2 | 0,0 |
+| tahap3 | 12,4 |
 | tahap4 | 11,3 |
 
-Sisa GPU: 27,8 jam. Sampai GO/NO-GO: 16,5 jam. Data penuh dihitung sampai epoch maksimum; patience bisa membuatnya lebih pendek.
+Sisa GPU: 23,8 jam. Sampai GO/NO-GO: 12,4 jam. Data penuh dihitung sampai epoch maksimum; patience bisa membuatnya lebih pendek.
 
 **Gerbang 1: LOLOS.**
 
 ## Gerbang 2: sinyal (3 seed)
 
-Belum ada data.
+### 1. Seri: D_LP(k) dan D_FT(k) = mAP50 linear probing atau fine-tune penuh − YOLO26, poin persen
+
+| Kelompok | D | k | Nilai | Per seed | Sinyal (≥ 2 dan searah) |
+|---|---|---|---|---|---|
+| Seluruh kelas | D_LP | 1 | 23,0 | 25,1 / 23,8 / 20,2 | ya |
+| Seluruh kelas | D_LP | 5 | 14,7 | 14,8 / 16,4 / 13,0 | ya |
+| Seluruh kelas | D_LP | 10 | 9,6 | 9,2 / 12,1 / 7,4 | ya |
+| Seluruh kelas | D_LP | 30 | 2,4 | 1,8 / 3,8 / 1,6 | ya |
+| Seluruh kelas | D_FT | 1 | 0,6 | 1,6 / -0,6 / 0,7 | – |
+| Seluruh kelas | D_FT | 5 | 1,8 | 1,8 / 2,9 / 0,7 | – |
+| Seluruh kelas | D_FT | 10 | 1,4 | 1,8 / 1,7 / 0,7 | – |
+| Seluruh kelas | D_FT | 30 | 1,3 | 0,0 / 1,6 / 2,3 | – |
+| APD | D_LP | 1 | 31,2 | 32,1 / 34,3 / 27,2 | ya |
+| APD | D_LP | 5 | 27,5 | 28,1 / 29,3 / 25,0 | ya |
+| APD | D_LP | 10 | 20,7 | 20,9 / 23,8 / 17,2 | ya |
+| APD | D_LP | 30 | 11,5 | 11,0 / 13,4 / 10,1 | ya |
+| APD | D_FT | 1 | 1,2 | 2,4 / 1,4 / -0,2 | – |
+| APD | D_FT | 5 | 3,4 | 4,3 / 4,3 / 1,7 | ya |
+| APD | D_FT | 10 | 2,2 | 3,4 / 1,9 / 1,1 | ya |
+| APD | D_FT | 30 | 2,8 | 1,1 / 3,3 / 4,1 | ya |
+| Bagian tubuh | D_LP | 1 | 8,9 | 14,3 / 5,2 / 7,1 | ya |
+| Bagian tubuh | D_LP | 5 | -9,6 | -10,5 / -8,1 / -10,1 | ya |
+| Bagian tubuh | D_LP | 10 | -12,8 | -15,3 / -10,6 / -12,6 | ya |
+| Bagian tubuh | D_LP | 30 | -18,1 | -18,9 / -17,6 / -17,9 | ya |
+| Bagian tubuh | D_FT | 1 | 2,8 | 2,8 / 0,6 / 5,1 | ya |
+| Bagian tubuh | D_FT | 5 | 0,8 | -0,7 / 2,5 / 0,6 | – |
+| Bagian tubuh | D_FT | 10 | 1,4 | 0,1 / 2,6 / 1,4 | – |
+| Bagian tubuh | D_FT | 30 | -0,1 | -0,6 / -0,3 / 0,5 | – |
+| Lainnya | D_LP | 1 | 17,6 | 17,1 / 17,6 / 18,1 | ya |
+| Lainnya | D_LP | 5 | 11,8 | 11,7 / 12,9 / 10,7 | ya |
+| Lainnya | D_LP | 10 | 10,3 | 12,0 / 10,2 / 8,6 | ya |
+| Lainnya | D_LP | 30 | 8,1 | 7,5 / 9,3 / 7,7 | ya |
+| Lainnya | D_FT | 1 | -8,0 | -5,4 / -13,3 / -5,3 | ya |
+| Lainnya | D_FT | 5 | -3,7 | -4,8 / -2,8 / -3,6 | ya |
+| Lainnya | D_FT | 10 | -2,3 | -2,1 / -1,8 / -2,8 | ya |
+| Lainnya | D_FT | 30 | -2,8 | -3,7 / -2,3 / -2,3 | ya |
+
+Berhenti karena seri: tidak
+
+### 2. Bising: SD antar seed pada k = 10: yoloe-lp 0,6, yolo26 2,8 poin. Berhenti: tidak
+
+### 3. Zero-shot: terbaik zeroshot_owlv2-base, rata-rata AP50 kelompok APD 51,7. Berhenti: tidak
+
+**Gerbang 2: LANJUT.**
 
 ## Gerbang 3: akhir (5 seed)
 

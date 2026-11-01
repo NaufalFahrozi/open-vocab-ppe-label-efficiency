@@ -5,7 +5,7 @@ data/*
 !data/yaml/
 data/splits/arsip_fewshot_lama/
 weights/
-runs/
+/runs/
 results/preds/
 results/dedup_embedding.npz
 results/berhenti.flag

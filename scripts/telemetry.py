@@ -60,16 +60,19 @@ class GpuMonitor:
         pynvml.nvmlInit()
         h = pynvml.nvmlDeviceGetHandleByIndex(0)
         while not self._stop.is_set():
-            self.samples.append((
-                pynvml.nvmlDeviceGetPowerUsage(h) / 1000,
-                pynvml.nvmlDeviceGetClockInfo(h, pynvml.NVML_CLOCK_SM),
-                pynvml.nvmlDeviceGetTemperature(h, pynvml.NVML_TEMPERATURE_GPU),
-                pynvml.nvmlDeviceGetUtilizationRates(h).gpu,
-                pynvml.nvmlDeviceGetEnforcedPowerLimit(h) / 1000,
-                psutil.virtual_memory().available / 1024**3,
-                pynvml.nvmlDeviceGetMemoryInfo(h).used / 1024**3,
-                commit_free_GB(),
-            ))
+            try:
+                self.samples.append((
+                    pynvml.nvmlDeviceGetPowerUsage(h) / 1000,
+                    pynvml.nvmlDeviceGetClockInfo(h, pynvml.NVML_CLOCK_SM),
+                    pynvml.nvmlDeviceGetTemperature(h, pynvml.NVML_TEMPERATURE_GPU),
+                    pynvml.nvmlDeviceGetUtilizationRates(h).gpu,
+                    pynvml.nvmlDeviceGetEnforcedPowerLimit(h) / 1000,
+                    psutil.virtual_memory().available / 1024**3,
+                    pynvml.nvmlDeviceGetMemoryInfo(h).used / 1024**3,
+                    commit_free_GB(),
+                ))
+            except pynvml.NVMLError:  # lewati satu sampel, training tetap jalan
+                pass
             time.sleep(self.interval)
         pynvml.nvmlShutdown()
 

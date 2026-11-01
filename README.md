@@ -6,7 +6,7 @@
 
 *How few labels does PPE detection really need? Mapping the zero-shot → few-shot → fully supervised curve with modern open-vocabulary detectors.*
 
-![Status](https://img.shields.io/badge/status-Tahap%202%20berjalan-orange)
+![Status](https://img.shields.io/badge/status-Tahap%202%20selesai-orange)
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.15-EE4C2C?logo=pytorch&logoColor=white)
 ![Ultralytics](https://img.shields.io/badge/Ultralytics-8.4-111F68)
@@ -19,7 +19,7 @@ Melabeli ribuan foto pekerja itu mahal. Detektor open-vocabulary menjanjikan jal
 
 Repo ini menjawabnya dengan satu kurva utuh, dari **nol label** sampai **data penuh**, pada split dan test set yang sama untuk semua model.
 
-> **Status jujur:** ini studi pendahuluan untuk calon skripsi S1 Informatika dan masih berjalan. Tahap 1 selesai, Tahap 2 berjalan, **belum ada kesimpulan penelitian**, dan topiknya belum diajukan ke dosen pembimbing.
+> **Status jujur:** ini studi pendahuluan untuk calon skripsi S1 Informatika dan masih berjalan. Tahap 1 dan 2 selesai, Tahap 3 belum dimulai, **belum ada kesimpulan penelitian**, dan topiknya belum diajukan ke dosen pembimbing.
 
 ## Kenapa ini menarik
 
@@ -89,7 +89,7 @@ Kurva dan tabel masuk ke sini setelah gerbang terkait selesai. Sengaja belum ada
 |---|---|---|
 | 0. Literatur | Apakah penelitian yang sama sudah ada? | Lolos |
 | 1. Teknis | Apakah pipeline sah dan jadwal sudah benar? | Lolos; batas RAM diturunkan dari 3,0 ke 2,5 GB setelah terukur 2,91 GB |
-| 2. Sinyal | Apakah kurvanya informatif? | Menunggu |
+| 2. Sinyal | Apakah kurvanya informatif? | Lanjut (3 seed, k ≤ 30); belum menjadi kesimpulan |
 | 3. Akhir | GO atau NO-GO? | Menunggu |
 
 ## Isi repo

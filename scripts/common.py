@@ -1,6 +1,10 @@
 """Konstanta bersama: path, nama kelas SH17, dan prompt teks."""
+import sys
 from collections import Counter
 from pathlib import Path
+
+# Tanpa ini, print ke file log memakai cp1252 dan gagal pada tanda minus Unicode.
+sys.stdout.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
