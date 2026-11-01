@@ -21,7 +21,7 @@ an = importlib.import_module("13_analyze")
 OUT = RESULTS / "hasil" / "gerbang.md"
 METODE = ["yoloe-lp", "yolo26"]
 JADWAL = ["A", "B", "C"]  # dari yang terpendek
-VRAM_MAKS, RAM_MIN, SERI_JADWAL = 5.2, 3.0, 0.01
+VRAM_MAKS, RAM_MIN, SERI_JADWAL = 5.2, 2.5, 0.01  # RAM_MIN semula 3,0; diturunkan Nopal setelah Gerbang 1
 KS_G2 = [1, 5, 10, 30]  # Gerbang 2 berhenti di k = 30; k = 100 baru jalan di Tahap 3
 D = {"D_LP": "yoloe-lp", "D_FT": "yoloe-ft"}  # selisih mAP50 terhadap yolo26
 

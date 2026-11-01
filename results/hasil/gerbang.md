@@ -23,7 +23,7 @@ Worker 12 gagal dan tidak punya baris: memori virtual Windows habis (WinError 14
 | full_seed0_yolo26s_ujiw6 | 16 | 6 | 2,64 | 5,10 | 0,04 | 77 |
 | full_seed0_yolo26s_ujiw8 | 16 | 8 | 3,05 | 5,10 | 0,01 | 75 |
 
-Dengan worker 1, seluruh run training: VRAM puncak 5,14 GB (batas 5,2), RAM bebas terendah 2,91 GB (batas 3,0). Kriteria: **GAGAL**
+Dengan worker 1, seluruh run training: VRAM puncak 5,14 GB (batas 5,2), RAM bebas terendah 2,91 GB (batas 2,5). Kriteria: **LOLOS**
 
 ### Uji jadwal di dev set (seed 0, rata-rata k = 1 dan 10)
 
@@ -51,7 +51,7 @@ common.py: (64, 100) untuk yoloe-lp, (64, 100) untuk yolo26 dan yoloe-ft, batch 
 
 Sisa GPU: 27,8 jam. Sampai GO/NO-GO: 16,5 jam. Data penuh dihitung sampai epoch maksimum; patience bisa membuatnya lebih pendek.
 
-**Gerbang 1: BELUM LOLOS.**
+**Gerbang 1: LOLOS.**
 
 ## Gerbang 2: sinyal (3 seed)
 

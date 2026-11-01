@@ -140,7 +140,7 @@ Hasil lengkap ada di `results/hasil/gerbang.md`. Keputusan dan temuan:
 | Temuan rencana | Jadwal A ternyata ±75-112 update, bukan ±62 | Jumlah update lebih banyak tidak menaikkan mAP dev pada seed ini |
 | Temuan `no_helmet` | Sebagian kotak hanya menutup bagian atas kepala, bukan seluruh kepala | Dari lembar `results/hasil/cek_no_helmet.jpg`. AP aturan asosiasi Construction-PPE bisa terlalu rendah; dibahas sebelum Tahap 3 |
 
-**Gerbang 1: belum lolos, satu kriteria.** RAM bebas terendah 2,91 GB terhadap batas 3,0 GB, pada uji satu epoch data penuh YOLOE. Run lain 3,3 GB ke atas. Sisa commit tetap ±23 GB. Kriteria tidak diubah; Nopal memutuskan sebelum "gas".
+**Gerbang 1: lolos setelah batas RAM diturunkan oleh Nopal.** RAM bebas terendah 2,91 GB terhadap batas 3,0 GB, pada uji satu epoch data penuh YOLOE. Run lain 3,3 GB ke atas. Sisa commit tetap ±23 GB. Setelah melihat angka ini, Nopal memutuskan batas RAM boleh lebih rendah dan menulis "gas" (1 November 2026). Batas di `15_gate.py` menjadi 2,5 GB. Perubahan ini soal keamanan perangkat, tidak menyentuh metrik penelitian.
 
 ## Kriteria gerbang
 
