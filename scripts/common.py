@@ -27,7 +27,8 @@ PROMPTS[SH17_NAMES.index("ear-mufs")] = "earmuffs"
 # Dikunci di Tahap 1 (lihat rencana_eksperimen.md).
 FEWSHOT_BATCH, FULL_BATCH = 8, 16
 WORKERS = 1  # terukur di Tahap 1: makin sedikit worker makin cepat dan makin hemat memori di laptop ini
-SCHEDULE = {"yoloe-lp": (8, 100), "yoloe-ft": (8, 100), "yolow-ft": (8, 100), "yolo26": (8, 100)}  # metode: (nbs, epoch)
+# Jadwal A menang untuk yoloe-lp dan yolo26 di dev set; yoloe-ft dan yolow-ft mengikuti yolo26.
+SCHEDULE = {"yoloe-lp": (64, 100), "yoloe-ft": (64, 100), "yolow-ft": (64, 100), "yolo26": (64, 100)}  # metode: (nbs, epoch)
 
 # Kelompok kelas: pola awal menunjukkan APD dan bagian tubuh bisa berlawanan arah.
 CLASS_GROUPS = {

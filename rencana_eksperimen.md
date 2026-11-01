@@ -122,6 +122,26 @@ Sesi utama memegang kontrol GPU. Sesi terpisah hanya untuk pekerjaan yang butuh 
 | Baru | Membaca Gerbang 2 dan 3, jika perlu analisis mendalam | High |
 | Baru | Laporan GO/NO-GO dan usulan judul | High |
 
+## Hasil Tahap 1 (1 November 2026)
+
+Hasil lengkap ada di `results/hasil/gerbang.md`. Keputusan dan temuan:
+
+| Topik | Hasil | Alasan |
+|---|---|---|
+| Ambang dedup | **Tetap 0,95**: 5.540 dari 6.466 gambar train (565 mirip test, 361 mirip train) | Lembar cek menunjukkan banyak pasangan 0,95-0,97 memang foto satu sesi. Menaikkan ke 0,97 menyisakan pasangan seperti itu. Kotak hilang merata, 5,6-20% per kelas |
+| Pool | 4.986 gambar, dev 554 | Semua kelas punya objek di dev |
+| k = 100 | `face-guard` 92 dan `medical-suit` 81 objek, memakai semua yang tersedia | Pool memang kurang; tercatat di `kelas_kurang` tiap sampel |
+| Worker | **1, menggantikan pilihan 12 atau 8 di bagian "Pemakaian GPU"** | Terukur per epoch: worker 8 3,05 menit, 6 2,64, 4 2,30, 2 2,04, 1 1,90. Worker 12 gagal karena memori virtual habis. Ultralytics memakai worker dua kali lipat saat validasi |
+| Jadwal | **A (nbs 64, 100 epoch) untuk semua metode** | Aturan pilih di dev set. Yoloe-lp 37,2 / 36,3 / 33,4 dan yolo26 22,3 / 21,1 / 19,1 untuk A / B / C. Satu seed, jadi hanya untuk memilih jadwal |
+| Batch data penuh | 16 | VRAM puncak 5,14 GB, batas 5,2 GB |
+| Determinisme | Identik sampai 6 desimal, yoloe-lp dan yolo26 | Run ulang di proses baru |
+| YOLO-World fine-tune | Jalan lewat `WorldTrainer` resmi pada uji 2 epoch | Poin 14; kecepatannya belum diukur |
+| Evaluator YOLO | YOLOE-26s 38,4 (lama 37,5), YOLO-World S 40,3 (lama 40,6) | Kode lama memakai `rect=True`. Selisihnya tidak lebih dari ±1 poin |
+| Temuan rencana | Jadwal A ternyata ±75-112 update, bukan ±62 | Jumlah update lebih banyak tidak menaikkan mAP dev pada seed ini |
+| Temuan `no_helmet` | Sebagian kotak hanya menutup bagian atas kepala, bukan seluruh kepala | Dari lembar `results/hasil/cek_no_helmet.jpg`. AP aturan asosiasi Construction-PPE bisa terlalu rendah; dibahas sebelum Tahap 3 |
+
+**Gerbang 1: belum lolos, satu kriteria.** RAM bebas terendah 2,91 GB terhadap batas 3,0 GB, pada uji satu epoch data penuh YOLOE. Run lain 3,3 GB ke atas. Sisa commit tetap ±23 GB. Kriteria tidak diubah; Nopal memutuskan sebelum "gas".
+
 ## Kriteria gerbang
 
 `scripts/15_gate.py` menghitung kriteria 1–3 otomatis dan menulis `results/hasil/gerbang.md`.

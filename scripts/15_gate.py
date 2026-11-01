@@ -75,6 +75,7 @@ def gerbang1(dev):
     worker = {t: r for t, r in terlatih.items() if "_ujiw" in t}
     if worker:
         md += ["### Uji batch dan worker, satu epoch data penuh", "",
+               "Worker 12 gagal dan tidak punya baris: memori virtual Windows habis (WinError 1455), lalu run menggantung.", "",
                an.table(["Run", "Batch", "Worker", "Waktu (mnt)", "VRAM (GB)", "RAM bebas min (GB)", "Suhu GPU maks"],
                         [[t, r["batch"], r["workers"], num(r["train_time_min"], 2), num(r["train_peak_vram_GB"], 2),
                           num(r["train_telemetry"]["ram_free_GB_min"], 2), r["train_telemetry"]["gpu_temp_C_max"]]
