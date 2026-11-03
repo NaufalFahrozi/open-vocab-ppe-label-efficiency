@@ -55,10 +55,19 @@ repo publik studi ini sendiri. Yang tumpang tindih sebagian:
 | Sentry–Judge (Frontiers in Built Environment 2026, 10.3389/fbuil.2026.1976288) | YOLOv11m fine-tuned + SAM 3 dengan prompt konsep untuk verifikasi ketiadaan APD; metrik FAR/DR, bukan mAP | Tanpa kurva k-shot. Relevan untuk ablation deteksi lalu aturan asosiasi |
 | Razaque dkk. 2026 (Frontiers in Built Environment, 10.3389/fbuil.2026.1867168) | Sudah ada di referensi utama | Tidak berubah |
 
-Belum terbaca: tinjauan sistematis CV untuk APD (Computers 15(6):388, 2026) dan deteksi alat konstruksi
-few-shot tanpa training (CACAIE 2025, 10.1111/mice.70129), keduanya diblokir 403. Judulnya tidak
-menunjukkan kurva zero/few/full untuk APD, tetapi tinjauan sistematis itu sebaiknya dibaca manual karena
-bisa jadi menyebut studi yang terlewat.
+Tinjauan sistematis Barlybayev dkk. (Computers 15(6):388, 2026; PRISMA 2020, studi 2010 sampai
+24 Februari 2026, 150 rekaman) sudah dibaca utuh dari PDF yang diunduh Nopal. Isinya:
+- Kata open-vocabulary, zero-shot, few-shot, Grounding DINO, YOLO-World, dan OWL **tidak muncul sama sekali**.
+  Kelompok vision-language yang dibahas (Clip2Safety, SafeVision, agen YOLOv10 + CLIP + LLM) memakai CLIP
+  atau LLM untuk penalaran kepatuhan, bukan detektor open-vocabulary dengan kurva label.
+- Disebut "newest and least mature" dengan sedikit laporan performa yang bisa dibandingkan.
+- Tantangan terbuka yang langsung mendukung topik ini: kelangkaan data berlabel untuk kategori APD langka,
+  generalisasi lintas domain, dan protokol benchmark yang terstandar. Sarung tangan, kacamata, pelindung
+  wajah, telinga, dan kaki dinilai "Low" kesiapannya karena data berlabel sedikit.
+- Bisa dikutip di latar belakang dan gap penelitian.
+
+Belum terbaca: deteksi alat konstruksi few-shot tanpa training (CACAIE 2025, 10.1111/mice.70129), diblokir
+403. Objeknya alat dan material, bukan APD.
 
 **Status G5: lolos (tumpang tindih sebagian).** Sama seperti Gerbang 0, pencarian ini terbatas.
 
