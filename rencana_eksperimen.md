@@ -43,6 +43,25 @@ Aturan yang tetap berlaku kalau kelak ditemukan paper baru:
   ada sudut baru.
 - **Lanjut:** tidak ada, atau hanya tumpang tindih sebagian.
 
+### Cek ulang G5 (3 November 2026)
+
+Pencarian web, arXiv API (abstrak memuat PPE/helmet dan open-vocabulary/zero-shot/few-shot), dan
+OpenAlex (terbitan sejak 2025, diurutkan terbaru). Satu-satunya hasil yang memetakan kurva yang sama adalah
+repo publik studi ini sendiri. Yang tumpang tindih sebagian:
+
+| Paper | Isi | Dampak |
+|---|---|---|
+| Violation detection in power operation sites (Frontiers in AI 2026, 10.3389/frai.2026.1833234) | Helm, tanpa helm, sarung tangan, tanpa sarung tangan; few-shot berbasis prototipe K = 1, 5, 10 dengan backbone ResNet-50; data privat; rata-rata 3 run tanpa varians | Few-shot APD, tetapi detektor closed-set, tanpa zero-shot open-vocabulary, tanpa data penuh sebagai kurva. **Bukan duplikat**; bisa dikutip sebagai pembanding few-shot APD |
+| Sentry–Judge (Frontiers in Built Environment 2026, 10.3389/fbuil.2026.1976288) | YOLOv11m fine-tuned + SAM 3 dengan prompt konsep untuk verifikasi ketiadaan APD; metrik FAR/DR, bukan mAP | Tanpa kurva k-shot. Relevan untuk ablation deteksi lalu aturan asosiasi |
+| Razaque dkk. 2026 (Frontiers in Built Environment, 10.3389/fbuil.2026.1867168) | Sudah ada di referensi utama | Tidak berubah |
+
+Belum terbaca: tinjauan sistematis CV untuk APD (Computers 15(6):388, 2026) dan deteksi alat konstruksi
+few-shot tanpa training (CACAIE 2025, 10.1111/mice.70129), keduanya diblokir 403. Judulnya tidak
+menunjukkan kurva zero/few/full untuk APD, tetapi tinjauan sistematis itu sebaiknya dibaca manual karena
+bisa jadi menyebut studi yang terlewat.
+
+**Status G5: lolos (tumpang tindih sebagian).** Sama seperti Gerbang 0, pencarian ini terbatas.
+
 ## Protokol yang dikunci
 
 | Topik | Keputusan | Alasan |

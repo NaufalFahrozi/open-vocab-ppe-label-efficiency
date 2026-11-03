@@ -19,7 +19,7 @@ Melabeli ribuan foto pekerja itu mahal. Detektor open-vocabulary menjanjikan jal
 
 Repo ini menjawabnya dengan satu kurva utuh, dari **nol label** sampai **data penuh**, pada split dan test set yang sama untuk semua model.
 
-> **Status jujur:** ini studi pendahuluan untuk calon skripsi S1 Informatika dan masih berjalan. Tahap 1–3 selesai, G5 (cek literatur ulang) belum dinilai, **belum ada kesimpulan penelitian**, dan topiknya belum diajukan ke dosen pembimbing.
+> **Status jujur:** ini studi pendahuluan untuk calon skripsi S1 Informatika dan masih berjalan. Tahap 1–3 selesai dan Gerbang 3 lolos (pola "GO kuat"), **belum ada kesimpulan penelitian**, dan topiknya belum diajukan ke dosen pembimbing.
 
 ## Kenapa ini menarik
 
@@ -90,7 +90,7 @@ Kurva dan tabel masuk ke sini setelah gerbang terkait selesai. Sengaja belum ada
 | 0. Literatur | Apakah penelitian yang sama sudah ada? | Lolos |
 | 1. Teknis | Apakah pipeline sah dan jadwal sudah benar? | Lolos; batas RAM diturunkan dari 3,0 ke 2,5 GB setelah terukur 2,91 GB |
 | 2. Sinyal | Apakah kurvanya informatif? | Lanjut (3 seed, k ≤ 30); belum menjadi kesimpulan |
-| 3. Akhir | GO atau NO-GO? | G1–G4 lolos; G5 (cek literatur) belum dinilai |
+| 3. Akhir | GO atau NO-GO? | GO: G1–G5 lolos (G5 dicek 3 Nov 2026) |
 
 ## Isi repo
 
