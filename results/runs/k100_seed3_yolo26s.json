@@ -1,0 +1,190 @@
+{
+  "tag": "k100_seed3_yolo26s",
+  "mAP50": 0.494911,
+  "mAP50-95": 0.301584,
+  "recall_pelanggaran_mean": 0.529037,
+  "per_class": {
+    "person": {
+      "P": 0.881221,
+      "R": 0.839064,
+      "AP50": 0.883418,
+      "AP50-95": 0.674838
+    },
+    "ear": {
+      "P": 0.891124,
+      "R": 0.507741,
+      "AP50": 0.647685,
+      "AP50-95": 0.341597
+    },
+    "ear-mufs": {
+      "P": 0.218298,
+      "R": 0.39329,
+      "AP50": 0.181842,
+      "AP50-95": 0.111751
+    },
+    "face": {
+      "P": 0.926052,
+      "R": 0.784367,
+      "AP50": 0.865648,
+      "AP50-95": 0.558749
+    },
+    "face-guard": {
+      "P": 0.246561,
+      "R": 0.416667,
+      "AP50": 0.370519,
+      "AP50-95": 0.259474
+    },
+    "face-mask": {
+      "P": 0.788327,
+      "R": 0.490066,
+      "AP50": 0.588059,
+      "AP50-95": 0.312563
+    },
+    "foot": {
+      "P": 0.35548,
+      "R": 0.154362,
+      "AP50": 0.147151,
+      "AP50-95": 0.054545
+    },
+    "tool": {
+      "P": 0.346393,
+      "R": 0.086674,
+      "AP50": 0.087398,
+      "AP50-95": 0.039508
+    },
+    "glasses": {
+      "P": 0.805725,
+      "R": 0.417085,
+      "AP50": 0.503518,
+      "AP50-95": 0.213482
+    },
+    "gloves": {
+      "P": 0.548274,
+      "R": 0.258979,
+      "AP50": 0.307251,
+      "AP50-95": 0.176289
+    },
+    "helmet": {
+      "P": 0.738733,
+      "R": 0.623377,
+      "AP50": 0.695617,
+      "AP50-95": 0.454488
+    },
+    "hands": {
+      "P": 0.842254,
+      "R": 0.669676,
+      "AP50": 0.751628,
+      "AP50-95": 0.435764
+    },
+    "head": {
+      "P": 0.912175,
+      "R": 0.85589,
+      "AP50": 0.895221,
+      "AP50-95": 0.626103
+    },
+    "medical-suit": {
+      "P": 0.395178,
+      "R": 0.511628,
+      "AP50": 0.35593,
+      "AP50-95": 0.229103
+    },
+    "shoes": {
+      "P": 0.751662,
+      "R": 0.40272,
+      "AP50": 0.513976,
+      "AP50-95": 0.263703
+    },
+    "safety-suit": {
+      "P": 0.281231,
+      "R": 0.622222,
+      "AP50": 0.35153,
+      "AP50-95": 0.22902
+    },
+    "safety-vest": {
+      "P": 0.558324,
+      "R": 0.208561,
+      "AP50": 0.26709,
+      "AP50-95": 0.145957
+    }
+  },
+  "speed_ms_per_img": {
+    "preprocess": 0.64,
+    "inference": 6.22,
+    "loss": 0.0,
+    "postprocess": 0.79
+  },
+  "val_time_s": 17.6,
+  "val_peak_vram_GB": 0.81,
+  "evaluator": "ultralytics.val",
+  "eval_imgsz": 640,
+  "model": "yolo26",
+  "size": "s",
+  "skenario": "100-shot",
+  "k": 100,
+  "seed": 3,
+  "n_train_images": 320,
+  "n_train_list": 320,
+  "fewshot_summary": {
+    "k": 100,
+    "seed": 3,
+    "n_images": 320,
+    "n_boxes": 4083,
+    "ulang": 1,
+    "kelas_kurang": {
+      "face-guard": 92,
+      "medical-suit": 81
+    },
+    "instances_per_class": {
+      "person": 669,
+      "ear": 221,
+      "ear-mufs": 100,
+      "face": 253,
+      "face-guard": 92,
+      "face-mask": 111,
+      "foot": 101,
+      "tool": 412,
+      "glasses": 103,
+      "gloves": 289,
+      "helmet": 140,
+      "hands": 451,
+      "head": 541,
+      "medical-suit": 81,
+      "shoes": 310,
+      "safety-suit": 103,
+      "safety-vest": 106
+    }
+  },
+  "eval_split": "test",
+  "workers": 1,
+  "resumed": false,
+  "nbs": 64,
+  "batch": 8,
+  "epochs_planned": 100,
+  "epochs": 100,
+  "steps": 4000,
+  "weight_updates_approx": 500,
+  "optimizer": "AdamW",
+  "lr0_actual": 0.000476,
+  "trainable_params": 9961022,
+  "total_params": 9961022,
+  "train_time_min": 12.97,
+  "train_peak_vram_GB": 3.16,
+  "train_telemetry": {
+    "ac_power": true,
+    "battery_percent": 78,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 88.668,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 54.5,
+    "gpu_power_W_max": 81.3,
+    "gpu_sm_clock_MHz_mean": 2472.1,
+    "gpu_temp_C_max": 81,
+    "gpu_util_pct_mean": 65.1,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 105.0,
+    "ram_free_GB_min": 4.06,
+    "gpu_mem_used_GB_max": 3.49,
+    "commit_free_GB_min": 5.68,
+    "n_samples": 777
+  }
+}

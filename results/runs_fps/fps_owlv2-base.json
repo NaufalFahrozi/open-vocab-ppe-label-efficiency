@@ -1,0 +1,26 @@
+{
+  "tag": "fps_owlv2-base",
+  "model": "owlv2-base",
+  "e2e_ms": 313.32,
+  "fps_e2e": 3.2,
+  "e2e_ms_p95": 325.75,
+  "n_images": 200,
+  "telemetry": {
+    "ac_power": true,
+    "battery_percent": 74,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 95.054,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 74.3,
+    "gpu_power_W_max": 89.9,
+    "gpu_sm_clock_MHz_mean": 2340.3,
+    "gpu_temp_C_max": 88,
+    "gpu_util_pct_mean": 91.5,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 95.054,
+    "ram_free_GB_min": 5.44,
+    "gpu_mem_used_GB_max": 1.15,
+    "commit_free_GB_min": 11.26,
+    "n_samples": 138
+  }
+}

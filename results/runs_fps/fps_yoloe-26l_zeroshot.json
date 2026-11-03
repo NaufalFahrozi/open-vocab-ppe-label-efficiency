@@ -1,0 +1,28 @@
+{
+  "tag": "fps_yoloe-26l_zeroshot",
+  "model": "yoloe-26l",
+  "e2e_ms": 27.22,
+  "fps_e2e": 36.7,
+  "e2e_ms_p95": 40.1,
+  "n_images": 200,
+  "telemetry": {
+    "ac_power": true,
+    "battery_percent": 75,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 91.677,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 38.8,
+    "gpu_power_W_max": 46.5,
+    "gpu_sm_clock_MHz_mean": 2454.6,
+    "gpu_temp_C_max": 72,
+    "gpu_util_pct_mean": 41.1,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 91.677,
+    "ram_free_GB_min": 5.65,
+    "gpu_mem_used_GB_max": 0.75,
+    "commit_free_GB_min": 11.83,
+    "n_samples": 14
+  },
+  "forward_ms": 18.64,
+  "fps_forward": 53.6
+}

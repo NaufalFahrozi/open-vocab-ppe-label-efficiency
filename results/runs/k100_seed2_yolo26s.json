@@ -1,0 +1,190 @@
+{
+  "tag": "k100_seed2_yolo26s",
+  "mAP50": 0.491476,
+  "mAP50-95": 0.301146,
+  "recall_pelanggaran_mean": 0.556574,
+  "per_class": {
+    "person": {
+      "P": 0.849942,
+      "R": 0.857352,
+      "AP50": 0.877921,
+      "AP50-95": 0.670195
+    },
+    "ear": {
+      "P": 0.861956,
+      "R": 0.572581,
+      "AP50": 0.676114,
+      "AP50-95": 0.363335
+    },
+    "ear-mufs": {
+      "P": 0.126987,
+      "R": 0.367347,
+      "AP50": 0.140844,
+      "AP50-95": 0.091499
+    },
+    "face": {
+      "P": 0.907165,
+      "R": 0.814016,
+      "AP50": 0.872556,
+      "AP50-95": 0.57412
+    },
+    "face-guard": {
+      "P": 0.275592,
+      "R": 0.541667,
+      "AP50": 0.361421,
+      "AP50-95": 0.198557
+    },
+    "face-mask": {
+      "P": 0.701146,
+      "R": 0.574884,
+      "AP50": 0.588635,
+      "AP50-95": 0.334319
+    },
+    "foot": {
+      "P": 0.280574,
+      "R": 0.14094,
+      "AP50": 0.132513,
+      "AP50-95": 0.043092
+    },
+    "tool": {
+      "P": 0.356283,
+      "R": 0.105092,
+      "AP50": 0.096543,
+      "AP50-95": 0.049247
+    },
+    "glasses": {
+      "P": 0.735294,
+      "R": 0.437186,
+      "AP50": 0.477992,
+      "AP50-95": 0.221082
+    },
+    "gloves": {
+      "P": 0.56666,
+      "R": 0.299106,
+      "AP50": 0.342698,
+      "AP50-95": 0.195004
+    },
+    "helmet": {
+      "P": 0.621232,
+      "R": 0.662338,
+      "AP50": 0.670904,
+      "AP50-95": 0.45107
+    },
+    "hands": {
+      "P": 0.811602,
+      "R": 0.698759,
+      "AP50": 0.758706,
+      "AP50-95": 0.443713
+    },
+    "head": {
+      "P": 0.89354,
+      "R": 0.864442,
+      "AP50": 0.89253,
+      "AP50-95": 0.630129
+    },
+    "medical-suit": {
+      "P": 0.378171,
+      "R": 0.604651,
+      "AP50": 0.368284,
+      "AP50-95": 0.220226
+    },
+    "shoes": {
+      "P": 0.675579,
+      "R": 0.5,
+      "AP50": 0.537727,
+      "AP50-95": 0.290976
+    },
+    "safety-suit": {
+      "P": 0.122622,
+      "R": 0.266667,
+      "AP50": 0.166482,
+      "AP50-95": 0.09451
+    },
+    "safety-vest": {
+      "P": 0.500232,
+      "R": 0.391753,
+      "AP50": 0.393219,
+      "AP50-95": 0.248414
+    }
+  },
+  "speed_ms_per_img": {
+    "preprocess": 0.66,
+    "inference": 6.29,
+    "loss": 0.0,
+    "postprocess": 0.82
+  },
+  "val_time_s": 21.4,
+  "val_peak_vram_GB": 0.78,
+  "evaluator": "ultralytics.val",
+  "eval_imgsz": 640,
+  "model": "yolo26",
+  "size": "s",
+  "skenario": "100-shot",
+  "k": 100,
+  "seed": 2,
+  "n_train_images": 354,
+  "n_train_list": 354,
+  "fewshot_summary": {
+    "k": 100,
+    "seed": 2,
+    "n_images": 354,
+    "n_boxes": 4673,
+    "ulang": 1,
+    "kelas_kurang": {
+      "face-guard": 92,
+      "medical-suit": 81
+    },
+    "instances_per_class": {
+      "person": 732,
+      "ear": 286,
+      "ear-mufs": 100,
+      "face": 309,
+      "face-guard": 92,
+      "face-mask": 104,
+      "foot": 100,
+      "tool": 441,
+      "glasses": 124,
+      "gloves": 268,
+      "helmet": 188,
+      "hands": 565,
+      "head": 688,
+      "medical-suit": 81,
+      "shoes": 394,
+      "safety-suit": 100,
+      "safety-vest": 101
+    }
+  },
+  "eval_split": "test",
+  "workers": 1,
+  "resumed": false,
+  "nbs": 64,
+  "batch": 8,
+  "epochs_planned": 100,
+  "epochs": 100,
+  "steps": 4500,
+  "weight_updates_approx": 562,
+  "optimizer": "AdamW",
+  "lr0_actual": 0.000476,
+  "trainable_params": 9961022,
+  "total_params": 9961022,
+  "train_time_min": 15.02,
+  "train_peak_vram_GB": 3.25,
+  "train_telemetry": {
+    "ac_power": true,
+    "battery_percent": 79,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 90.202,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 51.9,
+    "gpu_power_W_max": 80.7,
+    "gpu_sm_clock_MHz_mean": 2355.0,
+    "gpu_temp_C_max": 80,
+    "gpu_util_pct_mean": 62.3,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 105.0,
+    "ram_free_GB_min": 3.41,
+    "gpu_mem_used_GB_max": 3.59,
+    "commit_free_GB_min": 5.83,
+    "n_samples": 900
+  }
+}

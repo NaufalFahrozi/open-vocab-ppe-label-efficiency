@@ -1,0 +1,28 @@
+{
+  "tag": "fps_yolov8s-worldv2",
+  "model": "yolov8s-worldv2",
+  "e2e_ms": 15.17,
+  "fps_e2e": 65.9,
+  "e2e_ms_p95": 19.54,
+  "n_images": 200,
+  "telemetry": {
+    "ac_power": true,
+    "battery_percent": 75,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 84.961,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 22.0,
+    "gpu_power_W_max": 26.8,
+    "gpu_sm_clock_MHz_mean": 2058.8,
+    "gpu_temp_C_max": 66,
+    "gpu_util_pct_mean": 29.5,
+    "gpu_power_limit_W_min": 81.416,
+    "gpu_power_limit_W_max": 87.612,
+    "ram_free_GB_min": 5.63,
+    "gpu_mem_used_GB_max": 0.47,
+    "commit_free_GB_min": 12.5,
+    "n_samples": 8
+  },
+  "forward_ms": 8.3,
+  "fps_forward": 120.5
+}

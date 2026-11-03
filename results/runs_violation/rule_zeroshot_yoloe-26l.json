@@ -1,0 +1,13 @@
+{
+  "tag": "rule_zeroshot_yoloe-26l",
+  "mAP50": 0.624415,
+  "mAP50-95": 0.326797,
+  "P": 0.733891,
+  "R": 0.525477,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "aturan asosiasi",
+  "model": "yoloe-26l",
+  "skenario": "zero-shot"
+}

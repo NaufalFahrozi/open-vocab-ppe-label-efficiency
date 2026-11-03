@@ -1,0 +1,14 @@
+{
+  "tag": "negasi_yoloe-26l_head-without-helmet",
+  "mAP50": 0.374462,
+  "mAP50-95": 0.168052,
+  "P": 0.332543,
+  "R": 0.740631,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "prompt negasi",
+  "model": "yoloe-26l",
+  "prompt": "head without helmet",
+  "skenario": "zero-shot"
+}

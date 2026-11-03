@@ -1,0 +1,83 @@
+{
+  "tag": "cross_zeroshot_yoloe-26s",
+  "mAP50": 0.360511,
+  "mAP50-95": 0.126555,
+  "recall_pelanggaran_mean": null,
+  "per_class": {
+    "glasses": {
+      "P": 0.091571,
+      "R": 0.237452,
+      "AP50": 0.05782,
+      "AP50-95": 0.012799
+    },
+    "gloves": {
+      "P": 0.522851,
+      "R": 0.445897,
+      "AP50": 0.365154,
+      "AP50-95": 0.090747
+    },
+    "helmet": {
+      "P": 0.620078,
+      "R": 0.641662,
+      "AP50": 0.559254,
+      "AP50-95": 0.188061
+    },
+    "shoes": {
+      "P": 0.446151,
+      "R": 0.497806,
+      "AP50": 0.292045,
+      "AP50-95": 0.079755
+    },
+    "safety-vest": {
+      "P": 0.712507,
+      "R": 0.423267,
+      "AP50": 0.528283,
+      "AP50-95": 0.261412
+    }
+  },
+  "model": "yoloe-26s",
+  "skenario": "zero-shot",
+  "prompts": [
+    "person",
+    "ear",
+    "earmuffs",
+    "face",
+    "face guard",
+    "face mask",
+    "foot",
+    "tool",
+    "glasses",
+    "gloves",
+    "helmet",
+    "hands",
+    "head",
+    "medical suit",
+    "shoes",
+    "safety suit",
+    "safety vest"
+  ],
+  "evaluator": "detmetrics",
+  "n_images": 1414,
+  "infer_time_s": 27.0,
+  "infer_ms_per_img_incl_io": 19.1,
+  "infer_peak_vram_GB": 1.11,
+  "telemetry": {
+    "ac_power": true,
+    "battery_percent": 79,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 105.0,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 86.5,
+    "gpu_power_W_max": 590.0,
+    "gpu_sm_clock_MHz_mean": 2321.4,
+    "gpu_temp_C_max": 82,
+    "gpu_util_pct_mean": 39.3,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 105.0,
+    "ram_free_GB_min": 6.35,
+    "gpu_mem_used_GB_max": 1.42,
+    "commit_free_GB_min": 12.27,
+    "n_samples": 25
+  },
+  "dataset": "construction-ppe"
+}

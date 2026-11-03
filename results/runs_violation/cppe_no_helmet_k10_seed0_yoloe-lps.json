@@ -1,0 +1,15 @@
+{
+  "tag": "cppe_no_helmet_k10_seed0_yoloe-lps",
+  "mAP50": 0.036974,
+  "mAP50-95": 0.006988,
+  "P": 0.096909,
+  "R": 0.172357,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 485,
+  "dataset": "construction-ppe",
+  "pelanggaran": "no_helmet",
+  "pendekatan": "aturan asosiasi",
+  "model": "k10_seed0_yoloe-lps",
+  "AP_longgar": 0.18459
+}

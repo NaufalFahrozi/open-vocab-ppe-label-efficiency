@@ -1,0 +1,12 @@
+{
+  "tag": "rule_k10_seed4_yoloe-lps",
+  "mAP50": 0.635999,
+  "mAP50-95": 0.346302,
+  "P": 0.644249,
+  "R": 0.610727,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "aturan asosiasi",
+  "model": "k10_seed4_yoloe-lps"
+}

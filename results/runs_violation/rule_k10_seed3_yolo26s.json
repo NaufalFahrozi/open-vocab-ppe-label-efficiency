@@ -1,0 +1,12 @@
+{
+  "tag": "rule_k10_seed3_yolo26s",
+  "mAP50": 0.826142,
+  "mAP50-95": 0.557863,
+  "P": 0.862966,
+  "R": 0.766059,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "aturan asosiasi",
+  "model": "k10_seed3_yolo26s"
+}

@@ -1,0 +1,16 @@
+{
+  "tag": "cppe_no_helmet_negasi_yoloe-26s_bare-head",
+  "mAP50": 0.038075,
+  "mAP50-95": 0.008452,
+  "P": 0.128435,
+  "R": 0.068041,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 485,
+  "dataset": "construction-ppe",
+  "pelanggaran": "no_helmet",
+  "pendekatan": "prompt negasi",
+  "model": "yoloe-26s",
+  "prompt": "bare head",
+  "AP_longgar": 0.136224
+}

@@ -1,0 +1,15 @@
+{
+  "tag": "cppe_no_helmet_full_seed0_yolo26s",
+  "mAP50": 0.049572,
+  "mAP50-95": 0.008527,
+  "P": 0.162353,
+  "R": 0.164948,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 485,
+  "dataset": "construction-ppe",
+  "pelanggaran": "no_helmet",
+  "pendekatan": "aturan asosiasi",
+  "model": "full_seed0_yolo26s",
+  "AP_longgar": 0.22858
+}

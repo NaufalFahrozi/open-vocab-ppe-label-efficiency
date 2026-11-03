@@ -1,0 +1,13 @@
+{
+  "tag": "rule_zeroshot_gdino-tiny",
+  "mAP50": 0.806753,
+  "mAP50-95": 0.539855,
+  "P": 0.781467,
+  "R": 0.726562,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "aturan asosiasi",
+  "model": "gdino-tiny",
+  "skenario": "zero-shot"
+}

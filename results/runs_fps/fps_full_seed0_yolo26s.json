@@ -1,0 +1,28 @@
+{
+  "tag": "fps_full_seed0_yolo26s",
+  "model": "full_seed0_yolo26s/weights/best.pt",
+  "e2e_ms": 15.83,
+  "fps_e2e": 63.2,
+  "e2e_ms_p95": 20.99,
+  "n_images": 200,
+  "telemetry": {
+    "ac_power": true,
+    "battery_percent": 74,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 89.219,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 16.1,
+    "gpu_power_W_max": 21.9,
+    "gpu_sm_clock_MHz_mean": 2010.9,
+    "gpu_temp_C_max": 66,
+    "gpu_util_pct_mean": 14.4,
+    "gpu_power_limit_W_min": 82.849,
+    "gpu_power_limit_W_max": 93.497,
+    "ram_free_GB_min": 5.67,
+    "gpu_mem_used_GB_max": 0.46,
+    "commit_free_GB_min": 12.67,
+    "n_samples": 16
+  },
+  "forward_ms": 8.96,
+  "fps_forward": 111.7
+}

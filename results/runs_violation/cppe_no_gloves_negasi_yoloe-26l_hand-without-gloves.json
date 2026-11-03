@@ -1,0 +1,15 @@
+{
+  "tag": "cppe_no_gloves_negasi_yoloe-26l_hand-without-gloves",
+  "mAP50": 0.006662,
+  "mAP50-95": 0.001758,
+  "P": 0.018807,
+  "R": 0.06295,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 556,
+  "dataset": "construction-ppe",
+  "pelanggaran": "no_gloves",
+  "pendekatan": "prompt negasi",
+  "model": "yoloe-26l",
+  "prompt": "hand without gloves"
+}

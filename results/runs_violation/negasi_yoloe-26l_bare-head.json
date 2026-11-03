@@ -1,0 +1,14 @@
+{
+  "tag": "negasi_yoloe-26l_bare-head",
+  "mAP50": 0.455245,
+  "mAP50-95": 0.227021,
+  "P": 0.209025,
+  "R": 0.830295,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "prompt negasi",
+  "model": "yoloe-26l",
+  "prompt": "bare head",
+  "skenario": "zero-shot"
+}

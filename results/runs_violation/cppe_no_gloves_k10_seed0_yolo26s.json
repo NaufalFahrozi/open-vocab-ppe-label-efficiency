@@ -1,0 +1,14 @@
+{
+  "tag": "cppe_no_gloves_k10_seed0_yolo26s",
+  "mAP50": 0.019249,
+  "mAP50-95": 0.003112,
+  "P": 0.100238,
+  "R": 0.073741,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 556,
+  "dataset": "construction-ppe",
+  "pelanggaran": "no_gloves",
+  "pendekatan": "kelas hands",
+  "model": "k10_seed0_yolo26s"
+}

@@ -1,0 +1,28 @@
+{
+  "tag": "fps_k10_seed0_yoloe-lps",
+  "model": "k10_seed0_yoloe-lps/weights/last.pt",
+  "e2e_ms": 21.87,
+  "fps_e2e": 45.7,
+  "e2e_ms_p95": 30.02,
+  "n_images": 200,
+  "telemetry": {
+    "ac_power": true,
+    "battery_percent": 74,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 89.292,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 16.6,
+    "gpu_power_W_max": 21.5,
+    "gpu_sm_clock_MHz_mean": 2015.8,
+    "gpu_temp_C_max": 70,
+    "gpu_util_pct_mean": 11.3,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 93.394,
+    "ram_free_GB_min": 5.69,
+    "gpu_mem_used_GB_max": 0.46,
+    "commit_free_GB_min": 12.7,
+    "n_samples": 18
+  },
+  "forward_ms": 12.72,
+  "fps_forward": 78.6
+}

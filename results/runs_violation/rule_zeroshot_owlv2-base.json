@@ -1,0 +1,13 @@
+{
+  "tag": "rule_zeroshot_owlv2-base",
+  "mAP50": 0.592249,
+  "mAP50-95": 0.294696,
+  "P": 0.57906,
+  "R": 0.599452,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "aturan asosiasi",
+  "model": "owlv2-base",
+  "skenario": "zero-shot"
+}
