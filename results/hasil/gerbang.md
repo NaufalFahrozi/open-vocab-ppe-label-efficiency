@@ -23,7 +23,7 @@ Worker 12 gagal dan tidak punya baris: memori virtual Windows habis (WinError 14
 | full_seed0_yolo26s_ujiw6 | 16 | 6 | 2,64 | 5,10 | 0,04 | 77 |
 | full_seed0_yolo26s_ujiw8 | 16 | 8 | 3,05 | 5,10 | 0,01 | 75 |
 
-Dengan worker 1, seluruh run training: VRAM puncak 5,14 GB (batas 5,2), RAM bebas terendah 2,91 GB (batas 2,5). Kriteria: **LOLOS**
+Dengan worker 1, seluruh run training: VRAM puncak 5,14 GB (batas 5,2), RAM bebas terendah 1,63 GB (batas 2,5). Kriteria: **GAGAL**
 
 ### Uji jadwal di dev set (seed 0, rata-rata k = 1 dan 10)
 
@@ -47,11 +47,11 @@ common.py: (64, 100) untuk yoloe-lp, (64, 100) untuk yolo26 dan yoloe-ft, batch 
 |---|---|
 | tahap2 | 0,0 |
 | tahap3 | 0,7 |
-| tahap4 | 11,3 |
+| tahap4 | 2,2 |
 
-Sisa GPU: 12,0 jam. Sampai GO/NO-GO: 0,7 jam. Data penuh dihitung sampai epoch maksimum; patience bisa membuatnya lebih pendek.
+Sisa GPU: 3,0 jam. Sampai GO/NO-GO: 0,7 jam. Data penuh dihitung sampai epoch maksimum; patience bisa membuatnya lebih pendek.
 
-**Gerbang 1: LOLOS.**
+**Gerbang 1: BELUM LOLOS.**
 
 ## Gerbang 2: sinyal (3 seed)
 
@@ -96,14 +96,14 @@ Berhenti karena seri: tidak
 
 ### 2. Bising: SD antar seed pada k = 10: yoloe-lp 0,6, yolo26 2,8 poin. Berhenti: tidak
 
-### 3. Zero-shot: terbaik zeroshot_owlv2-base, rata-rata AP50 kelompok APD 51,7. Berhenti: tidak
+### 3. Zero-shot: terbaik zeroshot_owlv2-large, rata-rata AP50 kelompok APD 53,7. Berhenti: tidak
 
 **Gerbang 2: LANJUT.**
 
 ## Gerbang 3: akhir (5 seed)
 
 - G1 YOLO26s data penuh 61,0 mAP50 (≥ 58): **LOLOS**
-- G2 selisih zero-shot terbaik (zeroshot_owlv2-base, 50,1) vs YOLO26 penuh: 10,9 poin; bukti per kelas di ringkasan.md
+- G2 selisih zero-shot terbaik (zeroshot_owlv2-large, 55,4) vs YOLO26 penuh: 5,7 poin; bukti per kelas di ringkasan.md
 - G3 k dengan CI D_LP(k) atau D_FT(k) tidak memuat 0 dan |D| ≥ 2: **LOLOS**: D_LP seluruh kelas k=1 (22,9 ± 6,9); D_LP seluruh kelas k=5 (14,0 ± 2,0); D_LP seluruh kelas k=10 (9,6 ± 2,1); D_LP seluruh kelas k=30 (2,9 ± 1,4); D_LP seluruh kelas k=100 (-4,8 ± 1,2); D_FT seluruh kelas k=10 (2,0 ± 1,3); D_LP APD k=1 (31,0 ± 4,3); D_LP APD k=5 (26,6 ± 2,5); D_LP APD k=10 (21,2 ± 3,1); D_LP APD k=30 (12,2 ± 2,0); D_FT APD k=5 (3,4 ± 1,6); D_FT APD k=10 (3,4 ± 2,5); D_FT APD k=30 (3,5 ± 2,1); D_LP Bagian tubuh k=5 (-10,4 ± 2,8); D_LP Bagian tubuh k=10 (-14,0 ± 2,9); D_LP Bagian tubuh k=30 (-18,1 ± 0,6); D_LP Bagian tubuh k=100 (-20,9 ± 1,0); D_FT Bagian tubuh k=1 (2,3 ± 2,2); D_LP Lainnya k=1 (18,5 ± 5,3); D_LP Lainnya k=5 (11,8 ± 1,0); D_LP Lainnya k=10 (10,5 ± 1,5); D_LP Lainnya k=30 (8,4 ± 0,9); D_LP Lainnya k=100 (6,0 ± 0,4); D_FT Lainnya k=1 (-8,0 ± 4,5); D_FT Lainnya k=5 (-3,9 ± 1,1); D_FT Lainnya k=10 (-2,9 ± 1,2); D_FT Lainnya k=30 (-2,5 ± 0,9)
-- G4 kelas zero-shot AP50 < 20: 3, ≥ 50: 10; uji no_helmet dan no_gloves ada: True. **LOLOS**
+- G4 kelas zero-shot AP50 < 20: 2, ≥ 50: 11; uji no_helmet dan no_gloves ada: True. **GAGAL**
 - G5 paper baru yang menggugurkan Gerbang 0: dinilai manual

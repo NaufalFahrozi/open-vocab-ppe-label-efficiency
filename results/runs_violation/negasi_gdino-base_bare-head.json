@@ -1,0 +1,14 @@
+{
+  "tag": "negasi_gdino-base_bare-head",
+  "mAP50": 0.189828,
+  "mAP50-95": 0.120703,
+  "P": 0.214575,
+  "R": 0.591146,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "prompt negasi",
+  "model": "gdino-base",
+  "prompt": "bare head",
+  "skenario": "zero-shot"
+}

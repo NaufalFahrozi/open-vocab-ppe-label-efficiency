@@ -1,0 +1,15 @@
+{
+  "tag": "cppe_no_gloves_negasi_owlv2-base_hand-without-gloves",
+  "mAP50": 0.002147,
+  "mAP50-95": 0.000365,
+  "P": 0.009248,
+  "R": 0.115108,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 556,
+  "pendekatan": "prompt negasi",
+  "model": "owlv2-base",
+  "prompt": "hand without gloves",
+  "skenario": "zero-shot",
+  "pelanggaran": "no_gloves"
+}

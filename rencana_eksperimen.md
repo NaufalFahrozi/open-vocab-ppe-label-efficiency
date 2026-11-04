@@ -181,6 +181,28 @@ kalau ≥ 70% kotak label berada di dalam prediksi dan luas prediksi ≤ 4 kali 
 untuk aturan asosiasi dan prompt negasi. Angka 4 kali adalah penilaian, belum diuji. `no_gloves` tidak memakainya:
 bentuk kotaknya beragam (median 0,85), wajar untuk tangan dengan arah apa pun. Kriteria G4 tidak berubah.
 
+## Hasil Tahap 4 (4 November 2026)
+
+Semua 26 job selesai tanpa gagal. YOLOE-26s data penuh sempat dijeda di epoch 78 lalu dilanjutkan dari checkpoint.
+
+| Run | Hasil |
+|---|---|
+| YOLOE-26s fine-tune data penuh | 61,3 mAP50 / 39,2 mAP50-95, berhenti di epoch 119 karena patience. YOLO26s penuh 61,0 / 39,1 |
+| YOLO-World-v2 S fine-tune, 5 seed | k = 1: 20,9; k = 5: 32,3; k = 10: 35,6; k = 30: 42,2 mAP50. Unggul atas YOLO26s di semua k (CI tidak memuat 0), tetap di bawah linear probing YOLOE sampai k = 10 |
+| OWLv2-L zero-shot | 55,4 mAP50, zero-shot terbaik; lintas dataset 46,4 |
+| Prompt negasi Grounding DINO-B dan OWLv2-B | AP50 `no_helmet` dan `no_gloves` Construction-PPE ≤ 1,6, lebih rendah daripada aturan asosiasi |
+
+**`gerbang.md` dihitung ulang otomatis dan dua baris berubah. Keputusan GO tidak berubah**, karena Gerbang 3 sudah
+dinilai sebelum Tahap 4 dengan data saat itu, dan Tahap 4 hanya pelengkap.
+
+- G4 tertulis GAGAL. Skrip memakai model zero-shot terbaik, yang kini OWLv2-L. Di model itu hanya 2 kelas AP50 < 20
+  (syarat minimal 3), dan 11 kelas ≥ 50. Saat Gerbang 3 dinilai, zero-shot terbaik OWLv2-B: 3 kelas < 20 dan 10 kelas
+  ≥ 50. YOLOE-26s zero-shot juga memenuhi: 6 kelas < 20 dan 6 kelas ≥ 50.
+  Ini dibahas di laporan sebagai temuan: kelas yang sulit tergantung modelnya.
+- Gerbang 1 tertulis BELUM LOLOS karena RAM bebas terendah 1,63 GB, di bawah batas 2,5 GB. Angka itu dari run uji
+  YOLO-World 1 epoch (`runs_dev`); YOLOE data penuh 2,05 GB. Tidak ada run yang gagal. Ini soal keamanan perangkat,
+  bukan metrik penelitian. Kemungkinan karena aplikasi lain terbuka saat run, tetapi belum dibuktikan.
+
 ## Kriteria gerbang
 
 `scripts/15_gate.py` menghitung kriteria 1–3 otomatis dan menulis `results/hasil/gerbang.md`.

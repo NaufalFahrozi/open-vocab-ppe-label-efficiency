@@ -1,0 +1,187 @@
+{
+  "tag": "k10_seed0_yolow-fts",
+  "mAP50": 0.36056,
+  "mAP50-95": 0.207252,
+  "recall_pelanggaran_mean": 0.463408,
+  "per_class": {
+    "person": {
+      "P": 0.793818,
+      "R": 0.811631,
+      "AP50": 0.831137,
+      "AP50-95": 0.599454
+    },
+    "ear": {
+      "P": 0.767678,
+      "R": 0.528536,
+      "AP50": 0.568424,
+      "AP50-95": 0.286688
+    },
+    "ear-mufs": {
+      "P": 0.06496,
+      "R": 0.122449,
+      "AP50": 0.050395,
+      "AP50-95": 0.02762
+    },
+    "face": {
+      "P": 0.823222,
+      "R": 0.733042,
+      "AP50": 0.80317,
+      "AP50-95": 0.460864
+    },
+    "face-guard": {
+      "P": 0.023085,
+      "R": 0.25,
+      "AP50": 0.013058,
+      "AP50-95": 0.005614
+    },
+    "face-mask": {
+      "P": 0.692901,
+      "R": 0.358625,
+      "AP50": 0.451572,
+      "AP50-95": 0.187433
+    },
+    "foot": {
+      "P": 0.065365,
+      "R": 0.020134,
+      "AP50": 0.029491,
+      "AP50-95": 0.008124
+    },
+    "tool": {
+      "P": 0.184703,
+      "R": 0.073673,
+      "AP50": 0.036597,
+      "AP50-95": 0.015305
+    },
+    "glasses": {
+      "P": 0.519978,
+      "R": 0.512563,
+      "AP50": 0.468882,
+      "AP50-95": 0.204482
+    },
+    "gloves": {
+      "P": 0.285699,
+      "R": 0.300167,
+      "AP50": 0.227227,
+      "AP50-95": 0.124712
+    },
+    "helmet": {
+      "P": 0.419169,
+      "R": 0.525974,
+      "AP50": 0.481949,
+      "AP50-95": 0.334693
+    },
+    "hands": {
+      "P": 0.745968,
+      "R": 0.571918,
+      "AP50": 0.63385,
+      "AP50-95": 0.343092
+    },
+    "head": {
+      "P": 0.851189,
+      "R": 0.81747,
+      "AP50": 0.844576,
+      "AP50-95": 0.561063
+    },
+    "medical-suit": {
+      "P": 0.053252,
+      "R": 0.162791,
+      "AP50": 0.042098,
+      "AP50-95": 0.017571
+    },
+    "shoes": {
+      "P": 0.484116,
+      "R": 0.380753,
+      "AP50": 0.363792,
+      "AP50-95": 0.171795
+    },
+    "safety-suit": {
+      "P": 0.082113,
+      "R": 0.311111,
+      "AP50": 0.098928,
+      "AP50-95": 0.066661
+    },
+    "safety-vest": {
+      "P": 0.290038,
+      "R": 0.247423,
+      "AP50": 0.184374,
+      "AP50-95": 0.108115
+    }
+  },
+  "speed_ms_per_img": {
+    "preprocess": 0.64,
+    "inference": 7.38,
+    "loss": 0.0,
+    "postprocess": 0.82
+  },
+  "val_time_s": 19.7,
+  "val_peak_vram_GB": 1.03,
+  "evaluator": "ultralytics.val",
+  "eval_imgsz": 640,
+  "model": "yolow-ft",
+  "size": "s",
+  "skenario": "10-shot",
+  "k": 10,
+  "seed": 0,
+  "n_train_images": 36,
+  "n_train_list": 72,
+  "fewshot_summary": {
+    "k": 10,
+    "seed": 0,
+    "n_images": 36,
+    "n_boxes": 499,
+    "ulang": 2,
+    "kelas_kurang": {},
+    "instances_per_class": {
+      "person": 61,
+      "ear": 30,
+      "ear-mufs": 10,
+      "face": 31,
+      "face-guard": 10,
+      "face-mask": 10,
+      "foot": 11,
+      "tool": 71,
+      "glasses": 15,
+      "gloves": 37,
+      "helmet": 25,
+      "hands": 55,
+      "head": 51,
+      "medical-suit": 11,
+      "shoes": 50,
+      "safety-suit": 11,
+      "safety-vest": 10
+    }
+  },
+  "eval_split": "test",
+  "workers": 1,
+  "resumed": false,
+  "nbs": 64,
+  "batch": 8,
+  "epochs_planned": 100,
+  "epochs": 100,
+  "steps": 900,
+  "weight_updates_approx": 112,
+  "optimizer": "AdamW",
+  "lr0_actual": 0.000476,
+  "trainable_params": 12759864,
+  "total_params": 12759880,
+  "train_time_min": 5.33,
+  "train_peak_vram_GB": 2.5,
+  "train_telemetry": {
+    "ac_power": true,
+    "battery_percent": 79,
+    "windows_power_plan": "Balanced",
+    "gpu_enforced_power_limit_W": 80.0,
+    "gpu_max_sm_clock_MHz": 3105,
+    "gpu_power_W_mean": 34.9,
+    "gpu_power_W_max": 77.7,
+    "gpu_sm_clock_MHz_mean": 2386.6,
+    "gpu_temp_C_max": 70,
+    "gpu_util_pct_mean": 38.5,
+    "gpu_power_limit_W_min": 80.0,
+    "gpu_power_limit_W_max": 105.0,
+    "ram_free_GB_min": 3.36,
+    "gpu_mem_used_GB_max": 2.83,
+    "commit_free_GB_min": 6.55,
+    "n_samples": 319
+  }
+}

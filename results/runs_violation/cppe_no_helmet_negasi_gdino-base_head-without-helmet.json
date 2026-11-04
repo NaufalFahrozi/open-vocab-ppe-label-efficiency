@@ -1,0 +1,16 @@
+{
+  "tag": "cppe_no_helmet_negasi_gdino-base_head-without-helmet",
+  "mAP50": 0.004118,
+  "mAP50-95": 0.000781,
+  "P": 0.016421,
+  "R": 0.109278,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 485,
+  "pendekatan": "prompt negasi",
+  "model": "gdino-base",
+  "prompt": "head without helmet",
+  "skenario": "zero-shot",
+  "pelanggaran": "no_helmet",
+  "AP_longgar": 0.022927
+}

@@ -1,0 +1,14 @@
+{
+  "tag": "negasi_owlv2-base_bare-head",
+  "mAP50": 0.572289,
+  "mAP50-95": 0.278089,
+  "P": 0.56302,
+  "R": 0.595052,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "prompt negasi",
+  "model": "owlv2-base",
+  "prompt": "bare head",
+  "skenario": "zero-shot"
+}

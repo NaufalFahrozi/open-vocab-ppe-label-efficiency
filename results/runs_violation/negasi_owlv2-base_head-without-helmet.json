@@ -1,0 +1,14 @@
+{
+  "tag": "negasi_owlv2-base_head-without-helmet",
+  "mAP50": 0.111315,
+  "mAP50-95": 0.042199,
+  "P": 0.176464,
+  "R": 0.210069,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 2304,
+  "pendekatan": "prompt negasi",
+  "model": "owlv2-base",
+  "prompt": "head without helmet",
+  "skenario": "zero-shot"
+}

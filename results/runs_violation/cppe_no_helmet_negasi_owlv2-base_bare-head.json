@@ -1,0 +1,16 @@
+{
+  "tag": "cppe_no_helmet_negasi_owlv2-base_bare-head",
+  "mAP50": 0.015709,
+  "mAP50-95": 0.003129,
+  "P": 0.049717,
+  "R": 0.121649,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 485,
+  "pendekatan": "prompt negasi",
+  "model": "owlv2-base",
+  "prompt": "bare head",
+  "skenario": "zero-shot",
+  "pelanggaran": "no_helmet",
+  "AP_longgar": 0.05273
+}

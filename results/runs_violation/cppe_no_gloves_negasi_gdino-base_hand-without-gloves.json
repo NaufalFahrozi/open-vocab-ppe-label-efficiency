@@ -1,0 +1,15 @@
+{
+  "tag": "cppe_no_gloves_negasi_gdino-base_hand-without-gloves",
+  "mAP50": 0.002174,
+  "mAP50-95": 0.000437,
+  "P": 0.010504,
+  "R": 0.07554,
+  "recall_pelanggaran_mean": null,
+  "per_class": {},
+  "n_gt": 556,
+  "pendekatan": "prompt negasi",
+  "model": "gdino-base",
+  "prompt": "hand without gloves",
+  "skenario": "zero-shot",
+  "pelanggaran": "no_gloves"
+}
