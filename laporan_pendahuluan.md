@@ -150,6 +150,12 @@ Temuan:
 - Pada k = 100, kelas `face-guard` dan `medical-suit` memakai semua objek yang tersedia (92 dan 81).
 - Jadwal training few-shot dipilih di dev set dengan satu seed.
 - Pencarian literatur terbatas. Satu paper terkait (CACAIE 2025, deteksi alat konstruksi few-shot) belum terbaca.
+- Kriteria G4 (minimal 3 kelas zero-shot dengan AP50 < 20 dan 3 kelas ≥ 50, dihitung pada model zero-shot terbaik)
+  terpenuhi saat keputusan layak diambil: model terbaiknya OWLv2-B, dengan 3 kelas < 20 dan 10 kelas ≥ 50. Setelah
+  OWLv2-L ditambahkan sebagai pelengkap, skrip gerbang menghitung ulang dengan model itu. Hasilnya 2 kelas < 20 dan
+  11 kelas ≥ 50, sehingga G4 di `results/hasil/gerbang.md` kini tertulis gagal. Keputusan dan kriteria tidak diubah.
+  Tujuan G4, yaitu adanya kelas yang sulit dan yang mudah untuk RM 3, tetap terpenuhi. Kelas yang sulit ternyata
+  bergantung pada model.
 
 ## 6. Kesimpulan sementara
 
