@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
 
 import type { HasilMode, Orang, Status } from '@/lib/api'
 import { kelompokDari, namaTampil, TEKS_DI_ATAS, WARNA_KELOMPOK } from '@/lib/kelas'
 import { cn } from '@/lib/utils'
 
-// Foto dengan kotak deteksi. Setiap kali hasilnya berganti, garis pindai kuning menyapu foto dari atas
-// ke bawah dan kotak muncul tepat saat garis melewatinya: detektornya terasa "bekerja".
+// Foto dengan kotak deteksi dan label nama benda.
 
 export type Tampilan = 'deteksi' | 'kepatuhan' | 'baru'
 
@@ -23,7 +22,7 @@ interface Props {
   hasil?: HasilMode
   tampilan: Tampilan
   kelompok: Record<string, string[]>
-  animKey: string // berubah = animasi pindai diulang
+  animKey: string // berubah = kotak dipudarkan masuk lagi
   sorot?: string | null
   sorotOrang?: number | null
   memuat?: boolean
@@ -38,7 +37,6 @@ export const WARNA_STATUS: Record<Status, string> = {
   'tidak diketahui': 'var(--unknown)',
 }
 
-const DURASI_PINDAI = 0.7
 
 type Pos = { x: number; y: number; w: number; teks: string }
 
@@ -74,7 +72,6 @@ export function PhotoOverlay(p: Props) {
   const { gambar, hasil, tampilan, kelompok, animKey, sorot = null, sorotOrang = null, memuat, kecil, className, style } = p
   const wrap = useRef<HTMLDivElement>(null)
   const [lebarTampil, setLebarTampil] = useState(1)
-  const diam = useReducedMotion()
   useEffect(() => {
     if (!wrap.current) return
     const ro = new ResizeObserver(([e]) => setLebarTampil(e.contentRect.width || 1))
@@ -91,7 +88,6 @@ export function PhotoOverlay(p: Props) {
     if (tampilan === 'baru') return kelompokDari(kelas, kelompok) === 'Kelas baru'
     return sorot ? kelas === sorot : true
   }
-  const muncul = (y: number) => (diam ? 0 : Math.min(1, Math.max(0, y / gambar.tinggi)) * DURASI_PINDAI)
 
   const labelDet =
     tampilan !== 'kepatuhan'
@@ -124,7 +120,7 @@ export function PhotoOverlay(p: Props) {
                   key={i}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: on ? 1 : 0.16 }}
-                  transition={{ delay: muncul(d.box[1]), duration: 0.25 }}
+                  transition={{ duration: 0.2 }}
                 >
                   <title>{`${namaTampil(d.kelas)}, yakin ${Math.round(d.skor * 100)}%`}</title>
                   <Kotak b={d.box} stroke={WARNA_KELOMPOK[g]} strokeWidth={tebal * s} rx={3 * s} strokeDasharray={g === 'Kelas baru' ? `${7 * s} ${4 * s}` : undefined} />
@@ -150,7 +146,7 @@ export function PhotoOverlay(p: Props) {
               const teks = labelOrang(o)
               const tw = teks.length * fs * 0.58 + 10 * s
               return (
-                <motion.g key={i} initial={{ opacity: 0 }} animate={{ opacity: redup ? 0.2 : 1 }} transition={{ delay: muncul(o.box[1]), duration: 0.25 }}>
+                <motion.g key={i} initial={{ opacity: 0 }} animate={{ opacity: redup ? 0.2 : 1 }} transition={{ duration: 0.2 }}>
                   <Kotak b={o.box} stroke={warna} strokeWidth={3 * s} rx={4 * s} />
                   {o.kepala.filter((k) => k.tanpa_helm).map((k, j) => (
                     <Kotak key={`k${j}`} b={k.box} stroke="var(--bad)" strokeWidth={2.5 * s} strokeDasharray={`${5 * s} ${3 * s}`} rx={3 * s} />
@@ -163,7 +159,7 @@ export function PhotoOverlay(p: Props) {
                   <text x={cx} y={cy} dy="0.35em" textAnchor="middle" fontSize={fs} fill="#fff" fontWeight={700} fontFamily="Plus Jakarta Sans Variable">
                     {i + 1}
                   </text>
-                  {!kecil && (sorotOrang === i || kp.orang.length <= 4) && (
+                  {!kecil && sorotOrang === i && (
                     <>
                       <rect x={cx + r + 3 * s} y={cy - fs * 0.8} width={tw} height={fs * 1.6} rx={4 * s} fill={warna} />
                       <text x={cx + r + 8 * s} y={cy} dy="0.35em" fontSize={fs} fill="#fff" fontWeight={600} fontFamily="Plus Jakarta Sans Variable">
@@ -181,20 +177,6 @@ export function PhotoOverlay(p: Props) {
         </svg>
       )}
 
-      {/* garis pindai */}
-      {hasil && !diam && (
-        <motion.div
-          key={`pindai-${animKey}`}
-          className="pointer-events-none absolute inset-x-0 h-16"
-          style={{ background: 'linear-gradient(to bottom, transparent, color-mix(in oklab, var(--hivis) 22%, transparent))' }}
-          initial={{ top: '-4rem', opacity: 1 }}
-          animate={{ top: '100%', opacity: [1, 1, 0] }}
-          transition={{ duration: DURASI_PINDAI, ease: 'linear' }}
-          aria-hidden
-        >
-          <div className="absolute inset-x-0 bottom-0 h-0.5 bg-hivis" />
-        </motion.div>
-      )}
     </div>
   )
 }

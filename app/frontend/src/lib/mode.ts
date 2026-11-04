@@ -1,30 +1,35 @@
 import type { ModeId } from './api'
 
-// Nama mode dalam bahasa awam. Nama teknisnya tetap ada untuk dosen yang ingin tahu.
-export const MODE_AWAM: Record<ModeId, { angka: string; judul: string; pendek: string; teknis: string }> = {
+// Nama detektor dalam bahasa biasa. "Foto contoh" = foto latih yang bendanya sudah ditandai kotak oleh
+// manusia (foto berlabel). Nama teknis tetap ada untuk dosen yang ingin tahu.
+export const MODE_AWAM: Record<ModeId, { angka: string; judul: string; pendek: string; teknis: string; tumpukan: number }> = {
   zs: {
     angka: '0',
-    judul: 'Tanpa foto berlabel',
-    pendek: 'Cukup diberi nama benda',
+    judul: 'Belum diberi contoh',
+    pendek: 'Hanya tahu nama bendanya',
     teknis: 'YOLOE-26s zero-shot',
+    tumpukan: 0,
   },
   lp10: {
     angka: '39',
-    judul: '39 foto berlabel',
-    pendek: '10 contoh per jenis benda',
+    judul: 'Diberi 39 foto contoh',
+    pendek: '10 contoh untuk tiap jenis benda',
     teknis: 'YOLOE-26s linear probing, k = 10',
+    tumpukan: 1,
   },
   lp30: {
     angka: '109',
-    judul: '109 foto berlabel',
-    pendek: '30 contoh per jenis benda',
+    judul: 'Diberi 109 foto contoh',
+    pendek: '30 contoh untuk tiap jenis benda',
     teknis: 'YOLOE-26s linear probing, k = 30',
+    tumpukan: 2,
   },
   full: {
     angka: '4.986',
-    judul: '4.986 foto berlabel',
-    pendek: 'Seluruh data latih',
+    judul: 'Diberi 4.986 foto contoh',
+    pendek: 'Seluruh foto latih',
     teknis: 'YOLO26s, data penuh SH17',
+    tumpukan: 4,
   },
 }
 

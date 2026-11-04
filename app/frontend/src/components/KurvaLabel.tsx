@@ -57,7 +57,7 @@ export function KurvaLabel({ aktif, onPilih }: Props) {
     .y((d) => sy(d.map50))
     .curve(curveMonotoneX)
 
-  // arsiran "zona hemat label": dari k = 1 sampai k = 30, saat YOLOE masih di atas YOLO26
+  // arsiran "zona hemat foto contoh": dari k = 1 sampai k = 30, saat YOLOE masih di atas YOLO26
   const sampel = Array.from({ length: 40 }, (_, i) => 6 * Math.pow(109 / 6, i / 39))
   const zona = area<number>()
     .x((x) => sx(x))
@@ -99,24 +99,24 @@ export function KurvaLabel({ aktif, onPilih }: Props) {
             </text>
           ))}
           <text x={M.l} y={H - 4} fontSize={11} fill="var(--ink-3)">
-            foto berlabel, skala log
+            jumlah foto contoh (skala log)
           </text>
           <text x={M.l - 10} y={M.t - 10} textAnchor="end" fontSize={11} fill="var(--ink-3)">
-            mAP50
+            nilai
           </text>
 
-          {/* zona hemat label */}
+          {/* zona hemat foto contoh */}
           <path d={zona ?? ''} fill="var(--grp-apd)" opacity={0.12} />
           {!sempit && (
             <text x={sx(14)} y={sy(31)} fontSize={12} fontWeight={600} fill="var(--grp-apd)">
-              zona hemat label
+              zona hemat foto contoh
             </text>
           )}
 
           {/* acuan zero-shot terbaik */}
           <line x1={M.l} x2={w - M.r} y1={sy(OWL)} y2={sy(OWL)} stroke="var(--ink-3)" strokeDasharray="4 4" />
           <text x={sx(6)} y={sy(OWL) - 7} fontSize={11} fill="var(--ink-2)">
-            {sempit ? 'OWLv2-L zero-shot 55,4' : 'OWLv2-L zero-shot 55,4, akurat tapi hanya 0,6 foto per detik'}
+            {sempit ? 'OWLv2-L tanpa contoh: 55' : 'OWLv2-L tanpa contoh: nilai 55, tapi lambat (0,6 foto per detik)'}
           </text>
 
           {/* kurva */}
@@ -185,7 +185,7 @@ export function KurvaLabel({ aktif, onPilih }: Props) {
           style={{ left: sx(hover) }}
         >
           <p className="font-semibold">
-            {hover.toLocaleString('id-ID')} foto berlabel <span className="font-normal text-white/60">({K_DARI_X[hover]})</span>
+            {hover.toLocaleString('id-ID')} foto contoh <span className="font-normal text-white/60">({K_DARI_X[hover]})</span>
           </p>
           <p className="mt-1.5 flex justify-between">
             <span className="flex items-center gap-1.5">

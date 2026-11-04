@@ -20,7 +20,7 @@ export function Filmstrip({ daftar, aktif, onPilih, onUnggah, onAcak }: Props) {
     <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Pilih foto">
       <button
         onClick={() => input.current?.click()}
-        className="flex h-14 shrink-0 items-center gap-2 rounded-xl border border-dashed border-ink-3 bg-surface px-3 text-sm font-medium text-ink-2 hover:border-ink hover:text-ink"
+        className="flex h-12 shrink-0 items-center gap-2 rounded-xl border border-dashed border-ink-3 bg-surface px-3 text-sm font-medium text-ink-2 hover:border-ink hover:text-ink"
       >
         <ImagePlus className="size-4" aria-hidden />
         Unggah foto
@@ -44,7 +44,7 @@ export function Filmstrip({ daftar, aktif, onPilih, onUnggah, onAcak }: Props) {
           aria-label={`Pakai foto: ${namaFoto(n)}`}
           aria-pressed={aktif === n}
           className={cn(
-            'relative h-14 w-20 shrink-0 overflow-hidden rounded-xl ring-offset-2 ring-offset-page transition-shadow',
+            'relative h-12 w-16 shrink-0 overflow-hidden rounded-xl ring-offset-2 ring-offset-surface transition-shadow',
             aktif === n ? 'ring-2 ring-ink' : 'opacity-80 hover:opacity-100 hover:ring-1 hover:ring-ink-3',
           )}
         >
@@ -52,7 +52,7 @@ export function Filmstrip({ daftar, aktif, onPilih, onUnggah, onAcak }: Props) {
         </button>
       ))}
       {onAcak && (
-        <button onClick={onAcak} className="flex h-14 shrink-0 items-center gap-1.5 rounded-xl px-3 text-sm text-ink-2 hover:bg-surface hover:text-ink" aria-label="Tampilkan foto lain">
+        <button onClick={onAcak} className="flex h-12 shrink-0 items-center gap-1.5 rounded-xl px-3 text-sm text-ink-2 hover:bg-surface hover:text-ink" aria-label="Tampilkan foto lain">
           <Shuffle className="size-4" aria-hidden />
           Foto lain
         </button>

@@ -2,33 +2,31 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/plus-jakarta-sans/wght.css";
-@import "@fontsource-variable/bricolage-grotesque/opsz.css";
 
 @custom-variant dark (&:is(.dark *));
 
 /*
   Sorot: token warna.
-  - Halaman terang seperti beton, panggung foto gelap seperti monitor CCTV.
-  - Satu aksen: kuning hi-vis (rompi keselamatan), hanya untuk yang sedang aktif.
-  - Warna kotak per kelompok kelas lolos validator CVD (semua pasangan):
-    APD #2a78d6, bagian tubuh #eb6834, kelas baru #1baf7a.
+  - Terang dan ramah, untuk siapa saja yang membuka tanpa penjelasan.
+  - Warna merek: kuning K3 (rambu keselamatan), selalu dengan teks hitam (kontras 11:1).
+    Di atas putih, kuning dipakai sebagai isian, bukan teks; teks beraksen memakai --brand-ink.
+  - Warna kotak per kelompok kelas lolos validator CVD untuk semua pasangan:
+    APD #2a78d6, bagian tubuh #eb6834, benda baru #1baf7a (benda baru juga bergaris putus-putus).
   - Warna status kepatuhan hanya untuk status, selalu bersama ikon dan teks.
 */
 :root {
-  --page: #eef0f2;
+  --page: #f5f6f8;
   --surface: #ffffff;
-  --ink: #101820;
-  --ink-2: #4a5563;
-  --ink-3: #7b8794;
-  --line: #dde2e7;
-  --row: #f3f5f7;
+  --ink: #111827;
+  --ink-2: #4b5563;
+  --ink-3: #7c8594;
+  --line: #e3e6ea;
+  --row: #f1f3f5;
+  --plate: #e9ecef;
 
-  --stage: #0d141d;
-  --stage-2: #151f2a;
-  --stage-line: #253141;
-  --on-stage: #e8edf2;
-  --on-stage-2: #9aa7b5;
-  --hivis: #ffc400;
+  --brand: #ffc400;
+  --brand-soft: #fff6d6;
+  --brand-ink: #8a5d00;
 
   --grp-apd: #2a78d6;
   --grp-tubuh: #eb6834;
@@ -36,8 +34,8 @@
   --grp-lain: #cbd5e1;
 
   --ok: #16995a;
-  --bad: #e5484d;
-  --unknown: #8a97a6;
+  --bad: #dc3d43;
+  --unknown: #8a94a3;
 
   --background: var(--page);
   --foreground: var(--ink);
@@ -55,14 +53,13 @@
   --accent-foreground: var(--ink);
   --destructive: var(--bad);
   --border: var(--line);
-  --input: #cfd6dd;
+  --input: #d5dae0;
   --ring: #2a78d6;
   --radius: 0.75rem;
 }
 
 @theme inline {
   --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Bricolage Grotesque Variable', 'Plus Jakarta Sans Variable', sans-serif;
   --color-page: var(--page);
   --color-surface: var(--surface);
   --color-ink: var(--ink);
@@ -70,12 +67,10 @@
   --color-ink-3: var(--ink-3);
   --color-line: var(--line);
   --color-row: var(--row);
-  --color-stage: var(--stage);
-  --color-stage-2: var(--stage-2);
-  --color-stage-line: var(--stage-line);
-  --color-on-stage: var(--on-stage);
-  --color-on-stage-2: var(--on-stage-2);
-  --color-hivis: var(--hivis);
+  --color-plate: var(--plate);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
   --color-apd: var(--grp-apd);
   --color-tubuh: var(--grp-tubuh);
   --color-baru: var(--grp-baru);
@@ -105,7 +100,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.33);
   --radius-2xl: calc(var(--radius) * 1.67);
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -125,43 +119,8 @@
     outline-offset: 2px;
   }
   ::selection {
-    background: color-mix(in oklab, var(--hivis) 45%, transparent);
+    background: var(--brand-soft);
   }
-}
-
-.font-display {
-  font-family: var(--font-display);
-  font-variation-settings: "opsz" 96;
-  letter-spacing: -0.02em;
-}
-
-/* Sudut kotak deteksi: motif khas Sorot. Dipakai di logo, panggung foto, dan kartu fakta. */
-.sudut {
-  position: relative;
-}
-.sudut::before,
-.sudut::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-color: var(--sudut, var(--hivis));
-  pointer-events: none;
-}
-.sudut::before {
-  top: 0;
-  left: 0;
-  border-top: 2px solid;
-  border-left: 2px solid;
-  border-color: inherit;
-  border-color: var(--sudut, var(--hivis));
-}
-.sudut::after {
-  right: 0;
-  bottom: 0;
-  border-right: 2px solid;
-  border-bottom: 2px solid;
-  border-color: var(--sudut, var(--hivis));
 }
 
 @media (prefers-reduced-motion: reduce) {
