@@ -1,8 +1,12 @@
 # Laporan Studi Pendahuluan
 
-**Usulan judul:** Analisis Efisiensi Label Model Open-Vocabulary dan YOLO26 pada Deteksi Alat Pelindung Diri
+**Usulan judul:** Analisis Kebutuhan Data Berlabel pada Deteksi Alat Pelindung Diri Menggunakan Model Open-Vocabulary
+dan YOLO26 dengan Skenario Zero-Shot dan Few-Shot
 
-**Alternatif:** Perbandingan Model Open-Vocabulary dan YOLO26 untuk Deteksi Alat Pelindung Diri secara Zero-Shot dan Few-Shot
+**Alternatif:** Analisis Kebutuhan Data Berlabel Model Open-Vocabulary dan YOLO26 pada Deteksi Alat Pelindung Diri
+
+**Alternatif bila diminta implementasi sistem:** Analisis Kebutuhan Data Berlabel dan Implementasi Model
+Open-Vocabulary untuk Deteksi Alat Pelindung Diri
 
 Naufal Fahrozi, S1 Informatika, Universitas Mulawarman. 5 November 2026.
 
@@ -34,10 +38,12 @@ seperti itu tidak ada.
 
 ## 2. Rumusan masalah
 
-1. Bagaimana performa model open-vocabulary pada deteksi APD secara zero-shot dibandingkan YOLO26 yang dilatih penuh?
-2. Berapa jumlah data berlabel (shot) per kelas yang dibutuhkan model open-vocabulary dan YOLO26 untuk mencapai
-   performa setara?
-3. Kelas APD mana, terutama kelas pelanggaran, yang paling sulit dideteksi tanpa data berlabel?
+1. Berapa mAP50 dan mAP50-95 model open-vocabulary secara zero-shot pada deteksi APD dibandingkan YOLO26 yang
+   dilatih dengan seluruh data?
+2. Pada jumlah data berlabel per kelas berapa mAP YOLO26 menyamai model open-vocabulary yang diadaptasi dengan data
+   yang sama?
+3. Kelas APD mana yang AP-nya paling rendah tanpa data berlabel, terutama kelas pelanggaran (tanpa helm, tanpa sarung
+   tangan)?
 
 ## 3. Metode
 
@@ -149,7 +155,8 @@ Temuan:
   rendah. Ditambahkan AP longgar; ambangnya (luas prediksi ≤ 4 kali label) belum diuji.
 - Pada k = 100, kelas `face-guard` dan `medical-suit` memakai semua objek yang tersedia (92 dan 81).
 - Jadwal training few-shot dipilih di dev set dengan satu seed.
-- Pencarian literatur terbatas. Satu paper terkait (CACAIE 2025, deteksi alat konstruksi few-shot) belum terbaca.
+- Pencarian literatur terbatas. Satu paper terkait (Zhang dkk., 2025, CACAIE; deteksi alat dan material konstruksi
+  few-shot tanpa training) baru terbaca metadatanya; isinya belum dibaca karena akses penerbit terblokir.
 - Kriteria G4 (minimal 3 kelas zero-shot dengan AP50 < 20 dan 3 kelas ≥ 50, dihitung pada model zero-shot terbaik)
   terpenuhi saat keputusan layak diambil: model terbaiknya OWLv2-B, dengan 3 kelas < 20 dan 10 kelas ≥ 50. Setelah
   OWLv2-L ditambahkan sebagai pelengkap, skrip gerbang menghitung ulang dengan model itu. Hasilnya 2 kelas < 20 dan
@@ -175,7 +182,9 @@ Berdasarkan kriteria yang ditulis sebelum eksperimen, topik ini dinilai layak di
 
 1. Ahmad & Rahimi (2024). SH17: A dataset for human safety and personal protective equipment detection in
    manufacturing industry. arXiv:2407.04590.
-2. Barlybayev dkk. (2026). Tinjauan sistematis (PRISMA 2020) deteksi APD. Computers, 15(6), 388.
+2. Barlybayev, Milosz, Amangeldy, Li, Razakhova, Tazhibay, dkk. (2026). Systematic review of
+   computer-vision technologies for personal protective equipment compliance monitoring. Computers, 15(6), 388.
+   https://doi.org/10.3390/computers15060388
 3. Çarklı Yavuz (2026). Electronics, 15(6), 1146.
 4. Essien & Frimpong (2026). Sensors, 26(17), 5646.
 5. Gil & Lee (2024). Zero-shot monitoring of construction workers' PPE based on image captioning. Automation in
@@ -185,3 +194,6 @@ Berdasarkan kriteria yang ditulis sebelum eksperimen, topik ini dinilai layak di
    doi:10.3389/frai.2026.1833234.
 8. Wang, X., Huang, T. E., Darrell, T., Gonzalez, J. E., & Yu, F. (2020). Frustratingly simple few-shot object
    detection. ICML 2020.
+9. Zhang, Z., Yu, Y., Pan, Z., & Antwi-Afari, M. F. (2025). Training-free few-shot construction tool and material
+   detection using pre-trained vision-language model. Computer-Aided Civil and Infrastructure Engineering, 40(30),
+   6004–6023. https://doi.org/10.1111/mice.70129
