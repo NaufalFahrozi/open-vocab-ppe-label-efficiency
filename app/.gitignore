@@ -1,0 +1,21 @@
+# Jangan pernah menerbitkan bobot, hasil ekspor, media, atau basis data lokal (repo publik)
+*.pt
+*.engine
+*.onnx
+*.db
+*.sqlite
+*.mp4
+*.avi
+*.mov
+*.webm
+*.webp
+*.jpg
+*.jpeg
+*.png
+*.zip
+node_modules/
+frontend/dist/
+jobs/
+uploads/
+__pycache__/
+.env
