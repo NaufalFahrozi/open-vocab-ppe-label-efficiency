@@ -1,5 +1,6 @@
 import { MODE_ORDER, type DetectResponse, type ModeId, type ModelsResponse } from '@/lib/api'
 import { kelompokDari, namaTampil, WARNA_KELOMPOK, type Kelompok } from '@/lib/kelas'
+import { MODE_AWAM } from '@/lib/mode'
 import { cn } from '@/lib/utils'
 
 // Matriks kelas x mode: berapa objek tiap kelas yang dilihat tiap mode pada foto ini.
@@ -30,20 +31,20 @@ export function ClassMatrix({ hasil, modes, kelompok, sorot, onSorot }: Props) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-rule bg-sheet">
+    <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
       <table className="w-full min-w-[560px] border-collapse text-sm" onMouseLeave={() => onSorot(null)}>
         <caption className="px-3 pt-3 pb-2 text-left text-xs text-ink-2">
           Jumlah objek per kelas yang terdeteksi pada foto ini, dengan skor tertinggi di sebelahnya. Arahkan kursor ke satu
           baris untuk menyorot kelas itu di semua panel.
         </caption>
         <thead>
-          <tr className="border-y border-rule text-left text-xs text-ink-2">
+          <tr className="border-y border-line text-left text-xs text-ink-2">
             <th scope="col" className="px-3 py-2 font-medium">
               Kelas
             </th>
             {MODE_ORDER.map((m) => (
               <th key={m} scope="col" className="px-3 py-2 text-right font-medium">
-                {modes[m]?.label}
+                {MODE_AWAM[m].judul}
               </th>
             ))}
           </tr>
@@ -62,7 +63,7 @@ export function ClassMatrix({ hasil, modes, kelompok, sorot, onSorot }: Props) {
                 onMouseEnter={() => onSorot(k)}
                 onFocus={() => onSorot(k)}
                 tabIndex={0}
-                className={cn('border-t border-rule/60 outline-none', sorot === k ? 'bg-row' : 'hover:bg-row/60')}
+                className={cn('border-t border-line/70 outline-none', sorot === k ? 'bg-row' : 'hover:bg-row/60')}
               >
                 <th scope="row" className="px-3 py-1.5 text-left font-normal">
                   {namaTampil(k)}

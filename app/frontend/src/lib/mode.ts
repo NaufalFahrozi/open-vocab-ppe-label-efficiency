@@ -1,29 +1,37 @@
 import type { ModeId } from './api'
 
-// Nama mode dalam bahasa awam. Nama teknisnya tetap ditampilkan kecil, untuk dosen yang ingin tahu.
-export const MODE_AWAM: Record<ModeId, { angka: string; judul: string; teknis: string; ringkas: string }> = {
+// Nama mode dalam bahasa awam. Nama teknisnya tetap ada untuk dosen yang ingin tahu.
+export const MODE_AWAM: Record<ModeId, { angka: string; judul: string; pendek: string; teknis: string }> = {
   zs: {
     angka: '0',
     judul: 'Tanpa foto berlabel',
+    pendek: 'Cukup diberi nama benda',
     teknis: 'YOLOE-26s zero-shot',
-    ringkas: 'Model hanya diberi nama objek, misalnya "helmet", tanpa contoh gambar.',
   },
   lp10: {
     angka: '39',
     judul: '39 foto berlabel',
-    teknis: 'YOLOE-26s linear probing, 10 contoh per jenis',
-    ringkas: 'Model yang sama, lalu diajari dengan 10 contoh untuk tiap jenis objek.',
+    pendek: '10 contoh per jenis benda',
+    teknis: 'YOLOE-26s linear probing, k = 10',
   },
   lp30: {
     angka: '109',
     judul: '109 foto berlabel',
-    teknis: 'YOLOE-26s linear probing, 30 contoh per jenis',
-    ringkas: 'Model yang sama, lalu diajari dengan 30 contoh untuk tiap jenis objek.',
+    pendek: '30 contoh per jenis benda',
+    teknis: 'YOLOE-26s linear probing, k = 30',
   },
   full: {
     angka: '4.986',
     judul: '4.986 foto berlabel',
-    teknis: 'YOLO26s, seluruh data latih SH17',
-    ringkas: 'Detektor biasa yang dilatih dengan seluruh data latih.',
+    pendek: 'Seluruh data latih',
+    teknis: 'YOLO26s, data penuh SH17',
   },
 }
+
+// Nama ramah untuk foto demo; foto lain memakai nomor filenya.
+export const NAMA_FOTO: Record<string, string> = {
+  'image1003.jpg': 'Pekerja di atap gedung',
+  'image548.jpg': 'Tiga pekerja proyek',
+  'image58.jpeg': 'Teknisi di atas tangga',
+}
+export const namaFoto = (f: string) => NAMA_FOTO[f] ?? `Foto uji ${f.replace(/\D/g, '')}`

@@ -1,28 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronDown, ImageUp, LayoutGrid, Square } from 'lucide-react'
+import { motion } from 'motion/react'
 
-import { ClassMatrix } from '@/components/ClassMatrix'
-import { LabelRuler } from '@/components/LabelRuler'
-import { LabelStepper } from '@/components/LabelStepper'
-import { PhotoOverlay, type Gambar, type Tampilan } from '@/components/PhotoOverlay'
+import { Filmstrip } from '@/components/Filmstrip'
+import { type Gambar, type Tampilan } from '@/components/PhotoOverlay'
 import { PromptEditor } from '@/components/PromptEditor'
 import { PanelBaru, PanelDeteksi, PanelKepatuhan } from '@/components/SidePanels'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Slider } from '@/components/ui/slider'
+import { Stage } from '@/components/Stage'
+import { Story } from '@/components/Story'
 import { api, MODE_ORDER, type DetectResponse, type ModeId, type ModelsResponse } from '@/lib/api'
-import { fmtID } from '@/lib/kurva'
-import { MODE_AWAM } from '@/lib/mode'
 import { cn } from '@/lib/utils'
 
 // Foto demo tetap di depan, satu untuk tiap langkah skenario demo (lihat app/README.md):
 // image1003 pekerja lengkap APD, image548 helm yang gagal dikenali YOLO26 lintas dataset, image58 tangga.
 const FOTO_DEMO = ['image1003.jpg', 'image548.jpg', 'image58.jpeg']
+const JEDA_PUTAR = 1600 // ms per langkah saat tombol Putar ditekan
 
 const TAB: { id: Tampilan; label: string }[] = [
   { id: 'deteksi', label: 'Deteksi APD' },
   { id: 'kepatuhan', label: 'Cek kepatuhan' },
-  { id: 'baru', label: 'Tambah jenis APD' },
+  { id: 'baru', label: 'Cari benda baru' },
 ]
 
 // Ukuran foto dibaca dengan createImageBitmap, bukan img.decode(): decode() bisa ditunda browser saat tab
@@ -43,16 +39,29 @@ function acak<T>(arr: T[], n: number) {
   return a.slice(0, n)
 }
 
-function useLebar<T extends HTMLElement>() {
-  const ref = useRef<T>(null)
-  const [w, setW] = useState(0)
+function useLayarLebar() {
+  const q = '(min-width: 1024px)'
+  const [lebar, setLebar] = useState(() => window.matchMedia(q).matches)
   useEffect(() => {
-    if (!ref.current) return
-    const ro = new ResizeObserver(([e]) => setW(e.contentRect.width))
-    ro.observe(ref.current)
-    return () => ro.disconnect()
+    const m = window.matchMedia(q)
+    const f = () => setLebar(m.matches)
+    m.addEventListener('change', f)
+    return () => m.removeEventListener('change', f)
   }, [])
-  return [ref, w] as const
+  return lebar
+}
+
+// Logo: sudut kotak deteksi mengapit titik kuning, seperti detektor yang sedang menyorot sesuatu.
+function Logo() {
+  return (
+    <span className="flex items-center gap-2.5">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden>
+        <path d="M3 10V3h7M25 18v7h-7" fill="none" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="14" cy="14" r="4.5" fill="var(--hivis)" />
+      </svg>
+      <span className="font-display text-[22px] leading-none font-bold">Sorot</span>
+    </span>
+  )
 }
 
 export default function App() {
@@ -65,16 +74,14 @@ export default function App() {
   const [galat, setGalat] = useState<string | null>(null)
   const [tab, setTab] = useState<Tampilan>('deteksi')
   const [mode, setMode] = useState<ModeId>('zs')
-  const [berdampingan, setBerdampingan] = useState(false)
+  const [banding, setBanding] = useState(false)
+  const [putar, setPutar] = useState(false)
   const [sorot, setSorot] = useState<string | null>(null)
   const [sorotOrang, setSorotOrang] = useState<number | null>(null)
-  const [conf, setConf] = useState(0.25)
-  const [confGeser, setConfGeser] = useState(0.25)
   const [promptSibuk, setPromptSibuk] = useState(false)
   const [seret, setSeret] = useState(false)
-  const [kurvaRef, lebarKurva] = useLebar<HTMLDivElement>()
+  const lebar = useLayarLebar()
   const abort = useRef<AbortController | null>(null)
-  const fileInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     api.models().then(setModels).catch((e) => setGalat(`Server tidak bisa dihubungi: ${e.message}`))
@@ -99,13 +106,13 @@ export default function App() {
     setGalat(null)
     try {
       const modes = MODE_ORDER.filter((m) => models.modes[m]?.termuat)
-      setHasil(await api.detect(gambar.blob, { modes, conf, kepatuhan: true, ambang: models.ambang_pelanggaran }, ac.signal))
+      setHasil(await api.detect(gambar.blob, { modes, conf: models.conf_tampil, kepatuhan: true, ambang: models.ambang_pelanggaran }, ac.signal))
     } catch (e) {
       if ((e as Error).name !== 'AbortError') setGalat(`Deteksi gagal: ${(e as Error).message}`)
     } finally {
       if (abort.current === ac) setMemuat(false)
     }
-  }, [gambar, models, conf])
+  }, [gambar, models])
 
   useEffect(() => {
     deteksi()
@@ -121,7 +128,7 @@ export default function App() {
       })
       setSorotOrang(null)
     } catch {
-      setGalat('Gambar tidak bisa dibuka oleh browser.')
+      setGalat('Foto itu tidak bisa dibuka. Coba file JPG atau PNG lain.')
     }
   }
   const pilihContoh = async (nama: string) => pilihBlob(await (await fetch(api.sampleUrl(nama))).blob(), nama)
@@ -131,11 +138,44 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [strip])
 
+  // Tombol Putar: model "belajar" dari 0 sampai 4.986 foto berlabel, satu langkah tiap 1,6 detik.
+  useEffect(() => {
+    if (!putar) return
+    const t = setInterval(() => {
+      setMode((m) => {
+        const i = MODE_ORDER.indexOf(m)
+        if (i >= MODE_ORDER.length - 1) {
+          setPutar(false)
+          return m
+        }
+        return MODE_ORDER[i + 1]
+      })
+    }, JEDA_PUTAR)
+    return () => clearInterval(t)
+  }, [putar])
+
+  const mulaiPutar = (v: boolean) => {
+    if (v && mode === 'full') setMode('zs')
+    setPutar(v)
+  }
+  const pilihMode = (m: ModeId) => {
+    setPutar(false)
+    setMode(m)
+  }
   const gantiTab = (t: Tampilan) => {
     setTab(t)
+    setPutar(false)
     setSorot(null)
     setSorotOrang(null)
-    if (t === 'baru') setMode('zs') // hanya model tanpa label yang bisa mencari jenis baru
+    if (t === 'baru') {
+      setMode('zs') // hanya model tanpa label yang bisa mencari benda baru
+      setBanding(false)
+    }
+  }
+  const aturBanding = (v: boolean) => {
+    setPutar(false)
+    setBanding(v)
+    if (v && mode === 'zs') setMode('full')
   }
 
   const terapkanPrompt = async (kelas: string[]) => {
@@ -144,7 +184,7 @@ export default function App() {
       await api.setPrompts(kelas)
       setModels(await api.models())
     } catch (e) {
-      setGalat(`Jenis baru gagal diterapkan: ${(e as Error).message}`)
+      setGalat(`Pencarian gagal: ${(e as Error).message}`)
     } finally {
       setPromptSibuk(false)
     }
@@ -154,7 +194,6 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen"
       onDragOver={(e) => {
         e.preventDefault()
         setSeret(true)
@@ -167,227 +206,105 @@ export default function App() {
         if (f) pilihBlob(f, f.name)
       }}
     >
-      <div className="mx-auto max-w-[1360px] px-4 pt-6 pb-16 sm:px-8">
-        <header className="max-w-3xl">
-          <h1 className="font-wide text-2xl leading-tight font-semibold">Deteksi APD dengan sedikit foto berlabel</h1>
-          <p className="mt-1 text-[15px] text-ink-2">Pilih foto pekerja, ubah jumlah foto berlabel, lalu lihat apa yang berubah.</p>
-        </header>
-
-        <nav role="tablist" aria-label="Tugas" className="mt-4 flex gap-1 border-b border-rule">
+      {/* bilah atas */}
+      <header className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-6 gap-y-3 px-4 pt-4 pb-3 sm:px-6 lg:h-16 lg:flex-nowrap lg:py-0">
+        <Logo />
+        <p className="hidden min-w-0 truncate text-sm text-ink-2 xl:block">Berapa foto berlabel yang dibutuhkan untuk mengenali APD?</p>
+        <nav role="tablist" aria-label="Tugas" className="order-last flex w-full rounded-xl bg-surface p-1 lg:order-none lg:ml-auto lg:w-auto">
           {TAB.map((t) => (
             <button
               key={t.id}
               role="tab"
               aria-selected={tab === t.id}
               onClick={() => gantiTab(t.id)}
-              className={cn(
-                '-mb-px border-b-2 px-3 py-2.5 text-sm font-medium transition-colors sm:px-4',
-                tab === t.id ? 'border-ink text-ink' : 'border-transparent text-ink-2 hover:text-ink',
-              )}
+              className={cn('relative flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors lg:flex-none lg:px-4', tab === t.id ? 'text-white' : 'text-ink-2 hover:text-ink')}
             >
-              {t.label}
+              {tab === t.id && <motion.span layoutId="tab-aktif" className="absolute inset-0 rounded-lg bg-ink" transition={{ type: 'spring', stiffness: 420, damping: 36 }} />}
+              <span className="relative">{t.label}</span>
             </button>
           ))}
         </nav>
+      </header>
 
-        {galat && (
-          <p role="alert" className="mt-4 rounded-md border border-bad/40 bg-white px-3 py-2 text-sm text-bad">
-            {galat}
-          </p>
-        )}
+      {galat && (
+        <p role="alert" className="mx-auto mb-3 max-w-[1440px] px-4 text-sm text-bad sm:px-6">
+          {galat}
+        </p>
+      )}
 
-        {/* Urutan di layar sempit: foto, hasil, ganti foto. Di layar lebar hasil pindah ke kolom kanan. */}
-        <div className="mt-4 grid gap-x-8 gap-y-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-            <div className={cn('min-w-0 rounded-lg border border-rule bg-sheet p-3 sm:p-4 lg:col-start-1 lg:row-start-1', seret && 'outline-2 outline-offset-2 outline-ring outline-dashed')}>
-              {/* Kontrol utama diletakkan DI ATAS foto supaya selalu terlihat tanpa scroll di layar laptop
-                  (1536 x 760 px): sebelumnya penggeser berada di bawah foto dan jatuh di luar layar. */}
-              <div className="mb-4 flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <p className="text-sm font-medium">Berapa foto berlabel yang dipakai untuk melatih model?</p>
-                  <p className="mt-0.5 text-xs text-ink-3">
-                    Foto berlabel adalah foto yang setiap helm, rompi, dan benda lainnya sudah ditandai kotak satu per satu oleh
-                    manusia. Pekerjaan ini lama, jadi makin sedikit makin hemat.
-                  </p>
-                </div>
-                <div className="flex shrink-0 rounded-md border border-rule bg-white p-0.5" role="group" aria-label="Tampilan foto">
-                  {[
-                    { v: false, Ikon: Square, t: 'Satu model' },
-                    { v: true, Ikon: LayoutGrid, t: 'Berdampingan' },
-                  ].map(({ v, Ikon, t }) => (
-                    <button
-                      key={t}
-                      onClick={() => setBerdampingan(v)}
-                      aria-pressed={berdampingan === v}
-                      className={cn('flex items-center gap-1.5 rounded px-2 py-1 text-xs', berdampingan === v ? 'bg-ink text-white' : 'text-ink-2 hover:text-ink')}
-                    >
-                      <Ikon className="size-3.5" aria-hidden />
-                      <span className="hidden sm:inline">{t}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mb-4 px-1">
-                <LabelStepper nilai={mode} onPilih={setMode} terkunci={terkunci} alasanKunci="Model ini hanya mengenal 17 jenis objek yang dilatihkan" />
-              </div>
-
-              {!gambar || !models ? (
-                <div className="grid aspect-[4/3] place-items-center rounded-md bg-plate text-sm text-ink-3">Memuat foto dan model…</div>
-              ) : berdampingan ? (
-                <div className="grid grid-cols-2 gap-3">
-                  {MODE_ORDER.map((m) => (
-                    <button
-                      key={m}
-                      onClick={() => {
-                        if (terkunci.includes(m)) return
-                        setMode(m)
-                        setBerdampingan(false)
-                      }}
-                      className={cn('rounded-md p-1 text-left', m === mode ? 'ring-2 ring-ink' : 'hover:ring-1 hover:ring-ink-3', terkunci.includes(m) && 'opacity-40')}
-                      aria-label={`Tampilkan ${MODE_AWAM[m].judul}`}
-                    >
-                      <PhotoOverlay gambar={gambar} hasil={hasil?.hasil[m]} tampilan={tab} kelompok={models.kelompok_kelas} sorot={sorot} memuat={memuat} kecil />
-                      <span className="mt-1.5 block px-1 text-xs font-medium">{MODE_AWAM[m].judul}</span>
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <PhotoOverlay
-                  gambar={gambar}
-                  hasil={hasil?.hasil[mode]}
-                  tampilan={tab}
-                  kelompok={models.kelompok_kelas}
-                  sorot={sorot}
-                  sorotOrang={sorotOrang}
-                  memuat={memuat}
-                  className="mx-auto"
-                  // Tinggi foto mengikuti sisa layar, supaya judul, tab, penggeser, dan foto muat dalam satu layar.
-                  style={{ width: `min(100%, calc(max(240px, 100vh - 340px) * ${gambar.lebar / gambar.tinggi}))` }}
-                />
-              )}
-            </div>
-
-            {/* ganti foto */}
-            <section aria-labelledby="judul-foto" className="order-3 min-w-0 lg:order-none lg:col-start-1 lg:row-start-2">
-              <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-                <h2 id="judul-foto" className="text-sm font-medium">
-                  Ganti foto
-                </h2>
-                <p className="text-xs text-ink-3">Foto uji Construction-PPE, tidak pernah dipakai untuk melatih model</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <Button onClick={() => fileInput.current?.click()} size="sm" variant="outline" className="bg-white">
-                  <ImageUp aria-hidden /> Unggah foto
-                </Button>
-                <input
-                  ref={fileInput}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0]
-                    if (f) pilihBlob(f, f.name)
-                    e.target.value = ''
-                  }}
-                />
-                {strip.map((n) => (
-                  <button
-                    key={n}
-                    onClick={() => pilihContoh(n)}
-                    className={cn('h-12 w-16 shrink-0 overflow-hidden rounded border-2 bg-plate', gambar?.nama === n ? 'border-ink' : 'border-transparent hover:border-ink-3')}
-                    aria-label={`Pakai foto ${n}`}
-                    aria-pressed={gambar?.nama === n}
-                  >
-                    <img src={api.sampleUrl(n)} alt="" loading="lazy" className="h-full w-full object-cover" />
-                  </button>
-                ))}
-                {contoh.length > 9 && (
-                  <Button variant="ghost" size="sm" onClick={() => setStrip(acak(contoh, 9))}>
-                    Foto lain
-                  </Button>
-                )}
-              </div>
-              <details className="mt-3 text-sm">
-                <summary className="cursor-pointer text-ink-2 select-none hover:text-ink">Pengaturan tampilan</summary>
-                <div className="mt-3 flex max-w-md items-center gap-3">
-                  <Label htmlFor="conf" className="shrink-0 text-sm font-normal">
-                    Keyakinan minimal
-                  </Label>
-                  <Slider
-                    id="conf"
-                    min={0.05}
-                    max={0.9}
-                    step={0.05}
-                    value={[confGeser]}
-                    onValueChange={([v]) => setConfGeser(v)}
-                    onValueCommit={([v]) => setConf(v)}
-                    aria-label="Keyakinan minimal"
-                  />
-                  <span className="w-10 text-right text-sm font-semibold">{Math.round(confGeser * 100)}%</span>
-                </div>
-              </details>
-            </section>
-
-          {/* kanan: penjelasan bahasa awam */}
-          <aside className="order-2 min-w-0 lg:sticky lg:top-6 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start" aria-live="polite">
-            {hasil && models ? (
-              tab === 'deteksi' ? (
-                <PanelDeteksi mode={mode} hasil={hasil} kelompok={models.kelompok_kelas} sorot={sorot} onSorot={setSorot} onPilihMode={setMode} />
-              ) : tab === 'kepatuhan' ? (
-                <PanelKepatuhan mode={mode} hasil={hasil} sorotOrang={sorotOrang} onSorotOrang={setSorotOrang} onPilihMode={setMode} />
-              ) : (
-                <PanelBaru hasil={hasil} kelompok={models.kelompok_kelas} aktif={models.prompt_baru}>
-                  <PromptEditor key={models.prompt_baru.join('|')} aktif={models.prompt_baru} maks={10} sibuk={promptSibuk} onTerapkan={terapkanPrompt} />
-                </PanelBaru>
-              )
-            ) : (
-              <p className="text-sm text-ink-3">Hasil akan muncul di sini setelah foto diperiksa.</p>
-            )}
-          </aside>
+      {/* layar utama: muat dalam satu layar laptop */}
+      <main className="mx-auto grid max-w-[1440px] grid-cols-[minmax(0,1fr)] gap-5 px-4 sm:px-6 lg:h-[calc(100vh-4.5rem)] lg:min-h-[600px] lg:grid-cols-[minmax(0,1fr)_400px] lg:pb-4">
+        <div className={cn('flex min-h-0 min-w-0 flex-col gap-3', seret && 'rounded-2xl outline-2 outline-offset-4 outline-ring outline-dashed')}>
+          <div className={cn('min-h-0', lebar && 'flex-1')}>
+            <Stage
+              gambar={gambar}
+              hasil={hasil}
+              kelompok={models?.kelompok_kelas ?? {}}
+              tab={tab}
+              mode={mode}
+              onMode={pilihMode}
+              terkunci={terkunci}
+              memuat={memuat}
+              sorot={sorot}
+              sorotOrang={sorotOrang}
+              banding={banding}
+              onBanding={aturBanding}
+              putar={putar}
+              onPutar={mulaiPutar}
+              isi={lebar}
+            />
+          </div>
+          <Filmstrip
+            daftar={strip}
+            aktif={gambar?.nama ?? null}
+            onPilih={pilihContoh}
+            onUnggah={(f) => pilihBlob(f, f.name)}
+            onAcak={contoh.length > 9 ? () => setStrip(acak(contoh, 9)) : undefined}
+          />
         </div>
 
-        {/* penjelasan teknis, untuk yang ingin tahu kenapa */}
-        <section className="mt-16 border-t border-rule pt-8" aria-labelledby="judul-kenapa">
-          <h2 id="judul-kenapa" className="text-xl font-semibold">
-            Kenapa jumlah foto berlabel penting
-          </h2>
-          <div className="mt-3 max-w-3xl space-y-2 text-[15px] leading-relaxed text-ink-2">
-            <p>
-              Melabeli foto, yaitu menggambar kotak di sekitar setiap helm, rompi, dan sarung tangan, memakan waktu lama.
-              Penelitian ini mengukur berapa banyak label yang sebenarnya dibutuhkan.
-            </p>
-            <p>
-              Tanpa satu pun foto berlabel, model sudah mencapai mAP50 {fmtID(38.4)}. Dengan sedikit foto berlabel,
-              model yang sama lebih unggul daripada detektor biasa. Detektor biasa baru menyusul setelah diberi antara 109
-              dan 338 foto berlabel, dan mencapai {fmtID(61.0)} dengan seluruh 4.986 foto.
-            </p>
-          </div>
-          <div ref={kurvaRef} className="mt-6 max-w-4xl">
-            <LabelRuler width={lebarKurva} columns={1} gap={0} aktif={mode} onHover={() => {}} />
-            <p className="mt-2 text-xs text-ink-3">
-              Akurasi = mAP50 pada data uji SH17 (1.620 foto), rata-rata 5 ulangan untuk model dengan sedikit label.
-              Lingkaran besar adalah empat model yang bisa dicoba di atas.
-            </p>
-          </div>
-
-          {hasil && models && (
-            <details className="group mt-8">
-              <summary className="flex cursor-pointer items-center gap-1.5 text-sm font-medium select-none">
-                <ChevronDown className="size-4 transition-transform group-open:rotate-180" aria-hidden />
-                Rincian per jenis objek untuk keempat model pada foto ini
-              </summary>
-              <div className="mt-3">
-                <ClassMatrix hasil={hasil} modes={models.modes} kelompok={models.kelompok_kelas} sorot={sorot} onSorot={setSorot} />
+        <aside className="min-h-0 min-w-0 pb-2 lg:overflow-y-auto lg:pr-1" aria-live="polite">
+          {hasil && models ? (
+            tab === 'deteksi' ? (
+              <PanelDeteksi
+                mode={mode}
+                pembanding={banding ? 'zs' : undefined}
+                hasil={hasil}
+                kelompok={models.kelompok_kelas}
+                sorot={sorot}
+                onSorot={setSorot}
+                onMode={pilihMode}
+              />
+            ) : tab === 'kepatuhan' ? (
+              <PanelKepatuhan mode={mode} hasil={hasil} sorotOrang={sorotOrang} onSorotOrang={setSorotOrang} onMode={pilihMode} />
+            ) : (
+              <PanelBaru hasil={hasil} kelompok={models.kelompok_kelas} aktif={models.prompt_baru}>
+                <PromptEditor key={models.prompt_baru.join('|')} aktif={models.prompt_baru} maks={10} sibuk={promptSibuk} onTerapkan={terapkanPrompt} />
+              </PanelBaru>
+            )
+          ) : (
+            <div className="space-y-3" aria-label="Memuat hasil">
+              <div className="h-11 w-2/3 rounded-lg bg-surface" />
+              <div className="grid grid-cols-2 gap-2">
+                {[0, 1, 2, 3].map((i) => (
+                  <div key={i} className="h-16 rounded-xl bg-surface" />
+                ))}
               </div>
-            </details>
+            </div>
           )}
-        </section>
+        </aside>
+      </main>
 
-        <footer className="mt-12 max-w-3xl space-y-1 text-xs text-ink-3">
-          <p>Bobot yang dimuat adalah ulangan pertama (seed 0). Waktu per foto diukur langsung di laptop ini.</p>
-          <p>Prototipe skripsi untuk keperluan akademik. Ultralytics berlisensi AGPL-3.0, dataset SH17 berlisensi CC BY-NC-SA 4.0.</p>
-        </footer>
-      </div>
+      <Story mode={mode} onMode={pilihMode} hasil={hasil} models={models} sorot={sorot} onSorot={setSorot} />
+
+      <footer className="mx-auto max-w-[1440px] border-t border-line px-4 py-8 text-xs leading-relaxed text-ink-3 sm:px-6">
+        <p>
+          <span className="font-semibold text-ink-2">Sorot</span> adalah prototipe skripsi S1 Informatika Universitas Mulawarman tentang
+          kebutuhan data berlabel pada deteksi alat pelindung diri. Bobot yang dimuat adalah ulangan pertama (seed 0); waktu per foto
+          diukur langsung di laptop ini.
+        </p>
+        <p className="mt-1">Hanya untuk keperluan akademik. Ultralytics berlisensi AGPL-3.0, dataset SH17 berlisensi CC BY-NC-SA 4.0.</p>
+      </footer>
     </div>
   )
 }

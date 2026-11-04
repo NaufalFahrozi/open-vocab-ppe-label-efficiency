@@ -1,70 +1,84 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/plus-jakarta-sans/wght.css";
+@import "@fontsource-variable/bricolage-grotesque/opsz.css";
 
 @custom-variant dark (&:is(.dark *));
 
 /*
-  Token warna. Palet kategori (kelompok kelas, kurva) diperiksa dengan validator CVD:
-  - kelompok kelas: APD #2a78d6, bagian tubuh #eda100, kelas baru #e87ba4 (lolos, semua pasangan)
-  - kurva: YOLOE #6250d6, YOLO26 #eb6834 (lolos)
-  Warna status kepatuhan hanya dipakai untuk status, selalu bersama ikon dan teks.
+  Sorot: token warna.
+  - Halaman terang seperti beton, panggung foto gelap seperti monitor CCTV.
+  - Satu aksen: kuning hi-vis (rompi keselamatan), hanya untuk yang sedang aktif.
+  - Warna kotak per kelompok kelas lolos validator CVD (semua pasangan):
+    APD #2a78d6, bagian tubuh #eb6834, kelas baru #1baf7a.
+  - Warna status kepatuhan hanya untuk status, selalu bersama ikon dan teks.
 */
 :root {
-  --paper: #eef1f3;
-  --sheet: #f9fafb;
-  --ink: #1c2430;
-  --ink-2: #4a5566;
-  --ink-3: #7a8594;
-  --rule: #d3d9df;
-  --plate: #dde3e8; /* latar foto sebelum gambar termuat */
-  --row: #e6eaee; /* baris tabel yang disorot */
+  --page: #eef0f2;
+  --surface: #ffffff;
+  --ink: #101820;
+  --ink-2: #4a5563;
+  --ink-3: #7b8794;
+  --line: #dde2e7;
+  --row: #f3f5f7;
+
+  --stage: #0d141d;
+  --stage-2: #151f2a;
+  --stage-line: #253141;
+  --on-stage: #e8edf2;
+  --on-stage-2: #9aa7b5;
+  --hivis: #ffc400;
 
   --grp-apd: #2a78d6;
-  --grp-tubuh: #eda100;
-  --grp-lain: #5b6b8c;
-  --grp-baru: #e87ba4;
+  --grp-tubuh: #eb6834;
+  --grp-baru: #1baf7a;
+  --grp-lain: #cbd5e1;
 
-  --curve-yoloe: #6250d6;
-  --curve-yolo26: #eb6834;
+  --ok: #16995a;
+  --bad: #e5484d;
+  --unknown: #8a97a6;
 
-  --ok: #0f8a3c;
-  --bad: #d03b3b;
-  --unknown: #7a8594;
-
-  --background: var(--paper);
+  --background: var(--page);
   --foreground: var(--ink);
-  --card: var(--sheet);
+  --card: var(--surface);
   --card-foreground: var(--ink);
-  --popover: #ffffff;
+  --popover: var(--surface);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: #ffffff;
-  --secondary: #e2e7eb;
+  --secondary: var(--row);
   --secondary-foreground: var(--ink);
-  --muted: #e2e7eb;
+  --muted: var(--row);
   --muted-foreground: var(--ink-2);
-  --accent: #e2e7eb;
+  --accent: var(--row);
   --accent-foreground: var(--ink);
   --destructive: var(--bad);
-  --border: var(--rule);
-  --input: #c3cbd3;
+  --border: var(--line);
+  --input: #cfd6dd;
   --ring: #2a78d6;
-  --radius: 0.375rem;
+  --radius: 0.75rem;
 }
 
 @theme inline {
-  --font-sans: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-sans);
-  --color-paper: var(--paper);
-  --color-sheet: var(--sheet);
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Plus Jakarta Sans Variable', sans-serif;
+  --color-page: var(--page);
+  --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
-  --color-rule: var(--rule);
-  --color-plate: var(--plate);
+  --color-line: var(--line);
   --color-row: var(--row);
+  --color-stage: var(--stage);
+  --color-stage-2: var(--stage-2);
+  --color-stage-line: var(--stage-line);
+  --color-on-stage: var(--on-stage);
+  --color-on-stage-2: var(--on-stage-2);
+  --color-hivis: var(--hivis);
+  --color-apd: var(--grp-apd);
+  --color-tubuh: var(--grp-tubuh);
+  --color-baru: var(--grp-baru);
   --color-ok: var(--ok);
   --color-bad: var(--bad);
   --color-unknown: var(--unknown);
@@ -86,10 +100,12 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-xl: calc(var(--radius) * 1.33);
+  --radius-2xl: calc(var(--radius) * 1.67);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -108,14 +124,44 @@
     outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
+  ::selection {
+    background: color-mix(in oklab, var(--hivis) 45%, transparent);
+  }
 }
 
-/* Angka besar di penggaris memakai Archivo versi lebar. */
-.font-wide {
-  font-stretch: 118%;
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.02em;
 }
-.font-narrow {
-  font-stretch: 82%;
+
+/* Sudut kotak deteksi: motif khas Sorot. Dipakai di logo, panggung foto, dan kartu fakta. */
+.sudut {
+  position: relative;
+}
+.sudut::before,
+.sudut::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--sudut, var(--hivis));
+  pointer-events: none;
+}
+.sudut::before {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-color: inherit;
+  border-color: var(--sudut, var(--hivis));
+}
+.sudut::after {
+  right: 0;
+  bottom: 0;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  border-color: var(--sudut, var(--hivis));
 }
 
 @media (prefers-reduced-motion: reduce) {

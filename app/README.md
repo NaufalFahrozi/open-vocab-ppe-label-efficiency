@@ -1,7 +1,10 @@
-# Prototipe deteksi APD
+# Sorot
 
 Aplikasi lokal yang memperlihatkan temuan studi pendahuluan: satu foto diperiksa empat model yang dilatih dengan jumlah
 data berlabel berbeda, dari nol sampai seluruh data latih SH17. Prototipe akademik, bukan sistem produksi.
+
+Nama "Sorot" dari cara detektor menyorot APD di foto. Motif visualnya sudut kotak deteksi (⌜ ⌟) dan kuning hi-vis
+rompi keselamatan. Huruf: Bricolage Grotesque untuk judul dan angka, Plus Jakarta Sans untuk teks.
 
 ## Menjalankan
 
@@ -76,23 +79,26 @@ Bagian ini heuristik. Kalau dipakai di naskah, sebut sebagai rancangan sistem, b
 
 Tiga foto pertama di deretan contoh selalu sama dan disiapkan untuk skenario ini.
 
-Halaman punya tiga tab (Deteksi APD, Cek kepatuhan, Tambah jenis APD). Di bawah foto ada penggeser "jumlah foto
-berlabel" dengan empat titik: 0, 39, 109, dan 4.986. Menggeser titik langsung mengganti hasil model, karena hasil
-keempat model diambil sekaligus.
+Layar utama: panggung foto gelap di kiri dengan penggeser "foto berlabel" (0, 39, 109, 4.986), panel hasil di kanan,
+dan tiga tab di bilah atas (Deteksi APD, Cek kepatuhan, Cari benda baru). Hasil keempat model diambil sekaligus, jadi
+menggeser titik langsung mengganti kotak di foto, dengan garis pindai kuning yang menyapu foto setiap kali berganti.
 
-1. **Tab Deteksi APD, `image1003`.** Geser dari 0 ke 4.986 dan tunjukkan daftar "Yang ditemukan di foto ini" di
-   samping. Tanpa foto berlabel, model sudah menemukan helm dan rompi, tetapi hampir tidak menemukan bagian tubuh
-   (sesuai recall bagian tubuh terbuka 6,4%). Tombol "Berdampingan" menampilkan keempat model sekaligus.
-2. **Tab Cek kepatuhan, `image548`.** Pada 39 dan 109 foto berlabel, ketiga pekerja dinyatakan patuh (helm
-   0,90–0,96). Pada 4.986 foto berlabel, YOLO26 menyatakan "Tidak memakai helm" karena helm di foto ini hanya
-   mendapat skor 0,13 dan 0,002. Ini contoh nyata hasil uji lintas dataset: YOLO26s turun ke 32,0 mAP50 di
-   Construction-PPE, sedangkan bobot open-vocabulary lebih tahan pindah domain.
-3. **Tab Tambah jenis APD, `image58`.** Klik contoh `ladder`, lalu "Cari di foto". Zero-shot menemukan tangga (81%).
-   Titik 39, 109, dan 4.986 terkunci karena model itu hanya mengenal 17 jenis yang dilatihkan.
-4. **Batas zero-shot (opsional).** Tambah `safety harness` lalu buka `image169`: zero-shot menandai tali kartu
+1. **Deteksi APD, "Pekerja di atap gedung".** Tekan **Putar**: penggeser maju sendiri dari 0 ke 4.986 dan kotak di
+   foto bertambah. Panel kanan menuliskan perubahannya ("+2 dibanding 39 foto berlabel"). Tanpa label, model sudah
+   menemukan helm dan rompi, tetapi hampir tidak menemukan bagian tubuh (recall bagian tubuh terbuka 6,4%).
+2. **Bandingkan.** Tekan **Bandingkan**, lalu tarik garis kuning di tengah foto: kiri tanpa label, kanan model yang
+   dipilih di penggeser.
+3. **Cek kepatuhan, "Tiga pekerja proyek".** Kesimpulan tiap model untuk foto yang sama: 1/3, 3/3, 3/3, lalu 0/2
+   pekerja patuh. Pada 4.986 foto berlabel YOLO26 menyatakan "Tanpa helm" karena helm di foto ini hanya mendapat
+   skor 0,13 dan 0,002. Ini contoh nyata hasil uji lintas dataset: YOLO26s turun ke 32,0 mAP50 di Construction-PPE,
+   sedangkan bobot open-vocabulary lebih tahan pindah domain.
+4. **Cari benda baru, "Teknisi di atas tangga".** Klik saran `ladder`. Zero-shot menemukan tangga (81%); titik lain
+   terkunci karena model itu hanya mengenal 17 jenis yang dilatihkan.
+5. **Batas zero-shot (opsional).** Tambah `safety harness` lalu buka foto uji 169: zero-shot menandai tali kartu
    identitas sebagai harness (60%). Ini alasan untuk tetap memberi contoh berlabel pada jenis yang penting.
 
-Grafik kurva dan tabel per jenis objek ada di bagian "Kenapa jumlah foto berlabel penting" di bawah halaman.
+Di bawah layar utama ada bagian cerita: kurva kebutuhan label (bisa ditunjuk dan diklik), enam angka temuan, dan
+tabel per jenis benda untuk keempat model.
 
 ## Pengujian
 
