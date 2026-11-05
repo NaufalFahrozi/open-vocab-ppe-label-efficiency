@@ -8,7 +8,15 @@ nomor langkah memakai lingkaran kuning seperti rambu. Huruf: Plus Jakarta Sans.
 
 ## Menjalankan
 
-Semua perintah dijalankan dari root repo. Backend memakai `.venv` yang sudah ada.
+**Cara termudah:** klik dua kali `app/Jalankan Sorot.bat`. File itu memeriksa apakah server sudah jalan, memperingatkan
+kalau GPU sedang dipakai proses lain, membangun tampilan kalau belum ada, lalu menyalakan server dan membuka browser
+begitu keenam model siap (±30 detik). Tutup jendelanya untuk mematikan server.
+
+**Tanpa charger:** aplikasi tetap jalan. Di baterai, batas daya GPU laptop turun, jadi waktu per foto bisa sedikit lebih
+lama (belum diukur). Waktu yang tampil di layar diukur langsung, jadi tetap jujur. Kalau GPU sama sekali tidak tersedia,
+jalankan dengan `APP_DEVICE=cpu` (±70 ms per model per foto).
+
+Cara manual, semua perintah dijalankan dari root repo. Backend memakai `.venv` yang sudah ada.
 
 1. Bangun tampilan sekali (ulangi setiap kali kode `app/frontend` berubah):
 
