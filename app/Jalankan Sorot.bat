@@ -18,6 +18,39 @@ if not exist "%PY%" (
   exit /b 1
 )
 
+rem --- pastikan Python dasar .venv ada di lokasi aslinya ---
+rem .venv dibuat uv dari dalam aplikasi Claude (paket MSIX). Windows mengalihkan folder Roaming aplikasi itu
+rem ke AppData\Local\Packages\Claude_*\LocalCache\Roaming, sehingga Python dasarnya hanya "terlihat" dari
+rem dalam Claude. Kalau dijalankan dari Explorer, Python itu disalin sekali ke lokasi aslinya (+-61 MB).
+set "PYHOME="
+for /f "tokens=1,* delims== " %%a in ('findstr /b "home" ".venv\pyvenv.cfg"') do set "PYHOME=%%b"
+if not defined PYHOME goto cek_python
+if exist "%PYHOME%\python.exe" goto cek_python
+for %%n in ("%PYHOME%") do set "PYNAMA=%%~nxn"
+set "SALINAN="
+for /d %%d in ("%LOCALAPPDATA%\Packages\Claude_*") do if exist "%%d\LocalCache\Roaming\uv\python\%PYNAMA%\python.exe" set "SALINAN=%%d\LocalCache\Roaming\uv\python\%PYNAMA%"
+if not defined SALINAN (
+  echo [GAGAL] Python dasar untuk .venv tidak ditemukan: %PYHOME%
+  pause
+  exit /b 1
+)
+echo Menyiapkan Python untuk pertama kali, sekali saja...
+robocopy "%SALINAN%" "%PYHOME%" /E /NFL /NDL /NJH /NJS /NP >nul
+if not exist "%PYHOME%\python.exe" (
+  echo [GAGAL] Python tidak bisa disalin ke %PYHOME%
+  pause
+  exit /b 1
+)
+
+:cek_python
+"%PY%" -c "import torch, ultralytics, fastapi" 2>nul
+if errorlevel 1 (
+  echo [GAGAL] Python .venv tidak bisa memuat torch, ultralytics, atau fastapi.
+  "%PY%" -c "import torch, ultralytics, fastapi"
+  pause
+  exit /b 1
+)
+
 rem --- server sudah jalan? ---
 powershell -NoProfile -Command "try { Invoke-WebRequest -UseBasicParsing -TimeoutSec 2 '%URL%/api/health' | Out-Null; exit 0 } catch { exit 1 }"
 if %errorlevel%==0 (
