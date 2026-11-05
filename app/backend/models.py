@@ -59,7 +59,7 @@ class Registry:
                     # sama seperti scripts/03_zeroshot_yoloe.py.
                     with _folder_weights():
                         m = YOLOE("yoloe-26s.yaml").load(info["file"].name)
-                        m.set_classes(list(PROMPTS))
+                        _set_kelas(m, list(PROMPTS))
                     self.names[mode] = list(SH17_NAMES)
                 elif mode.startswith("lp"):
                     # Checkpoint linear probing sudah membawa 17 kelas SH17 (seperti 11_cross_dataset.py).
@@ -93,7 +93,7 @@ class Registry:
         if len(bersih) > config.MAX_PROMPT_BARU:
             raise ValueError(f"maksimal {config.MAX_PROMPT_BARU} kelas baru")
         with self.lock, _folder_weights():
-            self.models["zs"].set_classes(list(PROMPTS) + bersih)
+            _set_kelas(self.models["zs"], list(PROMPTS) + bersih)
             self._predict_raw("zs", np.zeros((640, 640, 3), dtype=np.uint8), 0.5)  # pemanasan ulang
         self.prompt_baru = bersih
         self.names["zs"] = list(SH17_NAMES) + bersih
@@ -143,6 +143,17 @@ class Registry:
             }
             for mode in config.MODES
         }
+
+
+def _set_kelas(model, kelas):
+    """Sama dengan model.set_classes(kelas), tetapi encoder teks MobileCLIP (254 MB) disimpan di memori.
+
+    set_classes bawaan Ultralytics memuat ulang encoder itu dari disk setiap kali dipanggil, sehingga
+    menambah satu kata di tab "Cari benda lain" butuh ±1,9 detik. Embedding yang dihasilkan sama persis,
+    hanya encodernya tidak dibangun ulang.
+    """
+    pe = model.model.get_text_pe(kelas, cache_clip_model=True)
+    model.set_classes(kelas, pe)
 
 
 def _sh17_names(names):

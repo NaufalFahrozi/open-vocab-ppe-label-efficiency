@@ -22,9 +22,9 @@ function cocokBawaan(t: string, kelas: string[]) {
   return kelas.find((k) => norm(k) === n || norm(NAMA_ID[k] ?? '') === n || (k === 'ear-mufs' && n === 'earmuffs'))
 }
 
-// Contoh yang benar-benar ada di foto uji: tangga (image58), kerucut lalu lintas (image1145), ekskavator
-// (image718). safety harness sengaja ada untuk memperlihatkan salah deteksi (image169).
-const SARAN = ['ladder', 'traffic cone', 'excavator', 'safety harness', 'fire extinguisher']
+// Contoh yang terbukti ditemukan di foto uji: tangga (image58), kerucut lalu lintas (image1145), botol dan
+// gelas (image1306), kursi (image1231). safety harness sengaja ada untuk memperlihatkan salah deteksi (image169).
+const SARAN = ['ladder', 'traffic cone', 'bottle', 'chair', 'safety harness']
 
 export function PromptEditor({ aktif, maks, sibuk, onTerapkan, kelasBawaan, bawaan, onBawaan }: Props) {
   const [daftar, setDaftar] = useState<string[]>(aktif)

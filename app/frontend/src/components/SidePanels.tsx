@@ -258,7 +258,7 @@ export function PanelBaru({ hasil, kelompok, aktif, bawaan, children }: BaruProp
       )}
       <p className="text-xs leading-relaxed text-ink-3">
         Hanya detektor yang belum diberi contoh yang bisa mencari benda baru. Lima detektor lain sudah terkunci pada 17 jenis
-        benda yang diajarkan. Hasilnya bisa keliru, misalnya tali kartu identitas pernah dikira safety harness.
+        benda yang diajarkan. Paling baik untuk benda yang bisa dihitung (botol, kursi, tangga, mobil); benda latar seperti pohon dan semak tidak terdeteksi. Hasilnya juga bisa keliru, misalnya tali kartu identitas pernah dikira safety harness.
       </p>
     </div>
   )
