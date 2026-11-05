@@ -25,6 +25,7 @@ interface Props {
   animKey: string // berubah = kotak dipudarkan masuk lagi
   sorot?: string | null
   sorotOrang?: number | null
+  ekstra?: string[] // kelas bawaan yang ikut disorot di tab Cari benda lain
   memuat?: boolean
   kecil?: boolean
   className?: string
@@ -69,7 +70,7 @@ const Kotak = ({ b, ...p }: { b: number[] } & React.SVGProps<SVGRectElement>) =>
 )
 
 export function PhotoOverlay(p: Props) {
-  const { gambar, hasil, tampilan, kelompok, animKey, sorot = null, sorotOrang = null, memuat, kecil, className, style } = p
+  const { gambar, hasil, tampilan, kelompok, animKey, sorot = null, sorotOrang = null, ekstra = [], memuat, kecil, className, style } = p
   const wrap = useRef<HTMLDivElement>(null)
   const [lebarTampil, setLebarTampil] = useState(1)
   useEffect(() => {
@@ -85,7 +86,7 @@ export function PhotoOverlay(p: Props) {
   const kp = hasil?.kepatuhan
 
   const fokus = (kelas: string) => {
-    if (tampilan === 'baru') return kelompokDari(kelas, kelompok) === 'Kelas baru'
+    if (tampilan === 'baru') return kelompokDari(kelas, kelompok) === 'Kelas baru' || ekstra.includes(kelas)
     return sorot ? kelas === sorot : true
   }
 

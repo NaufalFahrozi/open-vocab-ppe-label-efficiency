@@ -1,25 +1,42 @@
 import { useState } from 'react'
 import { Plus, Search, X } from 'lucide-react'
 
+import { NAMA_ID } from '@/lib/kelas'
+
 interface Props {
   aktif: string[] // kelas baru yang sedang dipakai backend
   maks: number
   sibuk: boolean
   onTerapkan: (kelas: string[]) => void
+  kelasBawaan: string[] // 17 kelas SH17 yang sudah dikenal detektor
+  bawaan: string[] // kelas bawaan yang sedang dicari pengguna
+  onBawaan: (kelas: string[]) => void
+}
+
+// "gloves" atau "helm" sudah termasuk 17 kelas bawaan. Dulu nama seperti ini dibuang diam-diam oleh backend
+// (supaya kelas tidak dobel), sehingga terlihat seperti tidak berfungsi. Sekarang dikenali di sini dan
+// hasilnya diambil dari kelas bawaannya.
+const norm = (s: string) => s.trim().toLowerCase().replace(/[-_\s]+/g, ' ')
+function cocokBawaan(t: string, kelas: string[]) {
+  const n = norm(t)
+  return kelas.find((k) => norm(k) === n || norm(NAMA_ID[k] ?? '') === n || (k === 'ear-mufs' && n === 'earmuffs'))
 }
 
 // Contoh yang benar-benar ada di foto uji: tangga (image58), kerucut lalu lintas (image1145), ekskavator
 // (image718). safety harness sengaja ada untuk memperlihatkan salah deteksi (image169).
 const SARAN = ['ladder', 'traffic cone', 'excavator', 'safety harness', 'fire extinguisher']
 
-export function PromptEditor({ aktif, maks, sibuk, onTerapkan }: Props) {
+export function PromptEditor({ aktif, maks, sibuk, onTerapkan, kelasBawaan, bawaan, onBawaan }: Props) {
   const [daftar, setDaftar] = useState<string[]>(aktif)
   const [teks, setTeks] = useState('')
   const berubah = daftar.join('|') !== aktif.join('|')
 
   const tambah = (t: string) => {
     const bersih = t.trim().toLowerCase().replace(/\s+/g, ' ')
-    if (bersih && !daftar.includes(bersih) && daftar.length < maks) {
+    const k = cocokBawaan(bersih, kelasBawaan)
+    if (k) {
+      if (!bawaan.includes(k)) onBawaan([...bawaan, k])
+    } else if (bersih && !daftar.includes(bersih) && daftar.length < maks) {
       const baru = [...daftar, bersih]
       setDaftar(baru)
       onTerapkan(baru) // langsung dicari, tanpa langkah "terapkan" yang membingungkan
@@ -58,8 +75,16 @@ export function PromptEditor({ aktif, maks, sibuk, onTerapkan }: Props) {
         </button>
       </form>
 
-      {daftar.length > 0 && (
+      {daftar.length + bawaan.length > 0 && (
         <ul className="flex flex-wrap gap-1.5" aria-label="Benda yang dicari">
+          {bawaan.map((k) => (
+            <li key={k} className="flex items-center gap-1 rounded-full border border-apd bg-surface py-1 pr-1 pl-3 text-sm" title="Sudah termasuk 17 jenis benda bawaan">
+              {k}
+              <button type="button" onClick={() => onBawaan(bawaan.filter((x) => x !== k))} className="rounded-full p-0.5 text-ink-3 hover:bg-row hover:text-ink" aria-label={`Hapus ${k}`}>
+                <X className="size-3.5" />
+              </button>
+            </li>
+          ))}
           {daftar.map((k) => (
             <li key={k} className="flex items-center gap-1 rounded-full border border-dashed border-baru bg-surface py-1 pr-1 pl-3 text-sm">
               {k}

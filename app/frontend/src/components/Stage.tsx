@@ -29,6 +29,7 @@ interface Props {
   memuat: boolean
   sorot: string | null
   sorotOrang: number | null
+  ekstra: string[]
   isi: boolean // true di layar lebar: mengisi tinggi yang tersedia; false di HP: tinggi mengikuti foto
 }
 
@@ -55,6 +56,7 @@ export function Stage(p: Props) {
             animKey={`${p.gambar.nama}-${p.tab}-${p.mode}-${p.hasil?.conf}`}
             sorot={p.sorot}
             sorotOrang={p.sorotOrang}
+            ekstra={p.ekstra}
             memuat={p.memuat}
           />
           {/* keterangan detektor yang sedang tampil, supaya jelas hasil siapa yang dilihat */}

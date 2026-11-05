@@ -90,6 +90,7 @@ export default function App() {
   const [sorot, setSorot] = useState<string | null>(null)
   const [sorotOrang, setSorotOrang] = useState<number | null>(null)
   const [promptSibuk, setPromptSibuk] = useState(false)
+  const [bawaan, setBawaan] = useState<string[]>([]) // kelas SH17 yang diketik di tab Cari benda lain
   const [seret, setSeret] = useState(false)
   const lebar = useLayarLebar()
   const abort = useRef<AbortController | null>(null)
@@ -254,6 +255,7 @@ export default function App() {
             memuat={memuat}
             sorot={sorot}
             sorotOrang={sorotOrang}
+            ekstra={tab === 'baru' ? bawaan : []}
             isi={lebar}
           />
 
@@ -284,8 +286,17 @@ export default function App() {
             ) : tab === 'kepatuhan' ? (
               <PanelKepatuhan mode={tampil} hasil={hasil} sorotOrang={sorotOrang} onSorotOrang={setSorotOrang} onMode={setMode} />
             ) : (
-              <PanelBaru hasil={hasil} kelompok={kelompok} aktif={models.prompt_baru}>
-                <PromptEditor key={models.prompt_baru.join('|')} aktif={models.prompt_baru} maks={10} sibuk={promptSibuk} onTerapkan={terapkanPrompt} />
+              <PanelBaru hasil={hasil} kelompok={kelompok} aktif={models.prompt_baru} bawaan={bawaan}>
+                <PromptEditor
+                  key={models.prompt_baru.join('|')}
+                  aktif={models.prompt_baru}
+                  maks={10}
+                  sibuk={promptSibuk}
+                  onTerapkan={terapkanPrompt}
+                  kelasBawaan={models.modes.zs.kelas.slice(0, 17)}
+                  bawaan={bawaan}
+                  onBawaan={setBawaan}
+                />
               </PanelBaru>
             )
           ) : (

@@ -219,12 +219,13 @@ interface BaruProps {
   hasil: DetectResponse | null
   kelompok: Record<string, string[]>
   aktif: string[]
+  bawaan: string[] // kelas bawaan SH17 yang diketik pengguna, misalnya "gloves"
   children: React.ReactNode
 }
 
-export function PanelBaru({ hasil, kelompok, aktif, children }: BaruProps) {
+export function PanelBaru({ hasil, kelompok, aktif, bawaan, children }: BaruProps) {
   const per = new Map<string, number[]>()
-  for (const d of hasil?.hasil.zs?.deteksi ?? []) if (kelompokDari(d.kelas, kelompok) === 'Kelas baru') per.set(d.kelas, [...(per.get(d.kelas) ?? []), d.skor])
+  for (const d of hasil?.hasil.zs?.deteksi ?? []) if (kelompokDari(d.kelas, kelompok) === "Kelas baru" || bawaan.includes(d.kelas)) per.set(d.kelas, [...(per.get(d.kelas) ?? []), d.skor])
 
   return (
     <div className="space-y-4">
@@ -233,13 +234,16 @@ export function PanelBaru({ hasil, kelompok, aktif, children }: BaruProps) {
         <p className="mt-1.5 text-sm text-ink-2">Ketik nama bendanya dalam bahasa Inggris, lalu detektor langsung mencarinya di foto.</p>
       </div>
       {children}
-      {aktif.length > 0 && (
+      {aktif.length + bawaan.length > 0 && (
         <ul className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface" aria-label="Hasil pencarian">
-          {aktif.map((k) => {
+          {[...bawaan, ...aktif].map((k) => {
             const s = per.get(k)
             return (
               <li key={k} className="flex items-center justify-between px-3 py-2.5">
-                <span className="text-sm font-medium">{k}</span>
+                <span className="text-sm font-medium">
+                  {k}
+                  {bawaan.includes(k) && <span className="ml-1.5 text-xs font-normal text-ink-3">sudah dikenal ({namaTampil(k)})</span>}
+                </span>
                 {s ? (
                   <span className="text-sm">
                     <b className="font-semibold">{s.length} ditemukan</b> <span className="text-xs text-ink-3">yakin {Math.round(Math.max(...s) * 100)}%</span>
@@ -253,7 +257,7 @@ export function PanelBaru({ hasil, kelompok, aktif, children }: BaruProps) {
         </ul>
       )}
       <p className="text-xs leading-relaxed text-ink-3">
-        Hanya detektor yang belum diberi contoh yang bisa mencari benda baru. Tiga detektor lain sudah terkunci pada 17 jenis
+        Hanya detektor yang belum diberi contoh yang bisa mencari benda baru. Lima detektor lain sudah terkunci pada 17 jenis
         benda yang diajarkan. Hasilnya bisa keliru, misalnya tali kartu identitas pernah dikira safety harness.
       </p>
     </div>
