@@ -169,7 +169,7 @@ export default function App() {
     }
   }
 
-  const terkunci: ModeId[] = tab === 'baru' ? ['lp10', 'lp30', 'full'] : []
+  const terkunci: ModeId[] = tab === 'baru' ? MODE_ORDER.filter((m) => m !== 'zs') : []
   const tampil = pratinjau ?? mode
   const kelompok = models?.kelompok_kelas ?? {}
 

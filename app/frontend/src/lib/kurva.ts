@@ -31,6 +31,8 @@ export const POSISI_MODE = {
   zs: { gambar: 0, map50: 38.4, kurva: 'yoloe' },
   lp10: { gambar: 39, map50: 41.1, kurva: 'yoloe' },
   lp30: { gambar: 109, map50: 43.2, kurva: 'yoloe' },
+  y10: { gambar: 39, map50: 31.5, kurva: 'yolo26' },
+  y30: { gambar: 109, map50: 40.3, kurva: 'yolo26' },
   full: { gambar: 4986, map50: 61.0, kurva: 'yolo26' },
 } as const
 

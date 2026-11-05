@@ -3,7 +3,7 @@ import { ArrowRight, CircleAlert, CircleCheck, CircleHelp } from 'lucide-react'
 
 import { MODE_ORDER, type DetectResponse, type ModeId, type Orang, type Status } from '@/lib/api'
 import { ikonKelas, kelompokDari, namaTampil, WARNA_KELOMPOK, type Kelompok } from '@/lib/kelas'
-import { MODE_AWAM } from '@/lib/mode'
+import { MODE_AWAM, namaPendek, PEMBANDING } from '@/lib/mode'
 import { cn } from '@/lib/utils'
 import { Angka } from './Angka'
 import { WARNA_STATUS } from './PhotoOverlay'
@@ -40,7 +40,7 @@ const JUDUL_KELOMPOK: Record<Kelompok, string> = { APD: 'Alat pelindung diri', '
 export function PanelDeteksi({ mode, hasil, kelompok, sorot, onSorot, onMode }: DeteksiProps) {
   const ini = hitung(hasil, mode)
   const i = MODE_ORDER.indexOf(mode)
-  const sebelum = i > 0 ? MODE_ORDER[i - 1] : null
+  const sebelum = PEMBANDING[mode]
   const lama = sebelum ? hitung(hasil, sebelum) : null
   const apd = [...ini.entries()].filter(([k]) => kelompokDari(k, kelompok) === 'APD').reduce((s, [, v]) => s + v.n, 0)
 
@@ -64,7 +64,7 @@ export function PanelDeteksi({ mode, hasil, kelompok, sorot, onSorot, onMode }: 
         <p className="rounded-xl bg-row px-3 py-2.5 text-sm text-ink-2">
           {berubah.length ? (
             <>
-              Dibanding detektor yang {sebelum === 'zs' ? 'belum diberi contoh' : `diberi ${MODE_AWAM[sebelum!].angka} foto contoh`}:{' '}
+              Dibanding {sebelum === 'zs' ? 'YOLOE-26s yang belum diberi contoh' : namaPendek(sebelum!)}:{' '}
               {berubah.map(({ k, d }, j) => (
                 <span key={k}>
                   {j > 0 && ', '}
@@ -75,7 +75,7 @@ export function PanelDeteksi({ mode, hasil, kelompok, sorot, onSorot, onMode }: 
               ))}
             </>
           ) : (
-            'Sama persis dengan detektor sebelumnya untuk foto ini.'
+            'Hasilnya sama persis untuk foto ini.'
           )}
         </p>
       )}

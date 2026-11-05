@@ -39,6 +39,21 @@ MODES = {
         "map50": 43.2,
         "file": RUNS / "k30_seed0_yoloe-lps" / "weights" / "last.pt",
     },
+    # YOLO26s few-shot: pembanding pada jumlah foto contoh yang sama dengan linear probing (rumusan masalah 2).
+    "y10": {
+        "label": "YOLO26s k = 10",
+        "keterangan": "Detektor biasa dilatih penuh dengan 10 objek per kelas (±39 gambar)",
+        "label_per_kelas": 10,
+        "map50": 31.5,
+        "file": RUNS / "k10_seed0_yolo26s" / "weights" / "last.pt",
+    },
+    "y30": {
+        "label": "YOLO26s k = 30",
+        "keterangan": "Detektor biasa dilatih penuh dengan 30 objek per kelas (±109 gambar)",
+        "label_per_kelas": 30,
+        "map50": 40.3,
+        "file": RUNS / "k30_seed0_yolo26s" / "weights" / "last.pt",
+    },
     "full": {
         "label": "YOLO26s data penuh",
         "keterangan": "Dilatih dengan seluruh 4.986 gambar latih SH17",

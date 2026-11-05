@@ -1,7 +1,7 @@
 // Tipe dan pemanggil API backend (app/backend/main.py).
 
-export type ModeId = 'zs' | 'lp10' | 'lp30' | 'full'
-export const MODE_ORDER: ModeId[] = ['zs', 'lp10', 'lp30', 'full']
+export type ModeId = 'zs' | 'lp10' | 'lp30' | 'y10' | 'y30' | 'full'
+export const MODE_ORDER: ModeId[] = ['zs', 'lp10', 'lp30', 'y10', 'y30', 'full']
 
 export interface ModeInfo {
   label: string

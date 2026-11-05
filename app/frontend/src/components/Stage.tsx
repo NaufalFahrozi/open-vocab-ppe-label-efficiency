@@ -60,7 +60,7 @@ export function Stage(p: Props) {
           {/* keterangan detektor yang sedang tampil, supaya jelas hasil siapa yang dilihat */}
           <span className={cn('absolute top-2 left-2 rounded-lg px-2.5 py-1 text-xs font-semibold shadow-sm', p.pratinjau ? 'bg-ink text-white' : 'bg-brand text-ink')}>
             {p.pratinjau ? 'Pratinjau: ' : ''}
-            {MODE_AWAM[p.mode].judul}
+            {MODE_AWAM[p.mode].model}, {MODE_AWAM[p.mode].judul.toLowerCase()}
           </span>
         </div>
       )}

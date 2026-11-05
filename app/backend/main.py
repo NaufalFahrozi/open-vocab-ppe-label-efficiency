@@ -141,4 +141,8 @@ if config.FRONTEND_DIST.exists():
         dist = config.FRONTEND_DIST.resolve()
         f = (dist / path).resolve()
         aman = f.is_relative_to(dist) and f.is_file()  # cegah path traversal (../)
-        return FileResponse(f if path and aman else dist / "index.html")
+        if path and aman:
+            return FileResponse(f)
+        # index.html tidak boleh disimpan browser: isinya menunjuk ke file JS terbaru setelah setiap build.
+        # File di /assets/ aman disimpan lama karena namanya berisi hash.
+        return FileResponse(dist / "index.html", headers={"Cache-Control": "no-cache"})

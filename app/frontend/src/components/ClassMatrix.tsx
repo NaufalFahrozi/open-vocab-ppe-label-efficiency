@@ -44,7 +44,7 @@ export function ClassMatrix({ hasil, modes, kelompok, sorot, onSorot }: Props) {
             </th>
             {MODE_ORDER.map((m) => (
               <th key={m} scope="col" className="px-3 py-2 text-right font-medium">
-                {MODE_AWAM[m].judul}
+                {MODE_AWAM[m].model}<span className="block font-normal text-ink-3">{MODE_AWAM[m].angka} foto contoh</span>
               </th>
             ))}
           </tr>

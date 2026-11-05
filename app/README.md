@@ -80,14 +80,24 @@ Bagian ini heuristik. Kalau dipakai di naskah, sebut sebagai rancangan sistem, b
 Tiga foto pertama di deretan contoh selalu sama dan disiapkan untuk skenario ini.
 
 Layar utama mengikuti tiga langkah bernomor: ① pilih foto, ② pilih detektor, ③ lihat yang ditemukan. Detektor dipilih
-lewat empat kartu ("Belum diberi contoh", "Diberi 39 / 109 / 4.986 foto contoh"). Tiap kartu menampilkan nilainya
-(mAP50, dibulatkan) dan hasilnya untuk foto yang sedang dibuka, jadi keempatnya bisa dibandingkan tanpa klik.
-Mengarahkan kursor ke kartu memperlihatkan hasil detektor itu di foto (pratinjau). Tab di kanan atas: Benda APD,
-Kepatuhan pekerja, Cari benda lain.
+lewat tabel enam kartu: baris = model (YOLOE-26s open-vocabulary, YOLO26s biasa), kolom = jumlah foto contoh
+(0, 39, 109, 4.986). Membaca satu kolom ke bawah menjawab rumusan masalah 2. Dua sel sengaja kosong dengan alasannya:
+YOLO26s tanpa contoh (tidak mungkin) dan YOLOE-26s dengan seluruh foto (setara YOLO26s, 61,3 vs 61,0). Tiap kartu
+menampilkan nilainya (mAP50, dibulatkan) dan hasilnya untuk foto yang sedang dibuka; mengarahkan kursor ke kartu
+memperlihatkan hasil detektor itu di foto (pratinjau). Tab di kanan atas: Benda APD, Kepatuhan pekerja, Cari benda lain.
 
-1. **Benda APD, "Pekerja di atap gedung".** Kartu menunjukkan 3, 6, 6, 6 APD. Klik kartu "Diberi 39 foto contoh";
-   panel kanan menuliskan perubahannya ("+2 sarung tangan, +1 sepatu"). Tanpa contoh, detektor sudah menemukan helm
-   dan rompi, tetapi hampir tidak menemukan bagian tubuh (recall bagian tubuh terbuka 6,4%).
+| Kartu | Bobot (seed 0) | nilai (mAP50) |
+|---|---|---|
+| YOLOE-26s, 0 foto | `weights/yoloe-26s-seg.pt` (zero-shot) | 38,4 |
+| YOLOE-26s, 39 foto | `runs/train/k10_seed0_yoloe-lps/weights/last.pt` (linear probing) | 41,1 |
+| YOLOE-26s, 109 foto | `runs/train/k30_seed0_yoloe-lps/weights/last.pt` (linear probing) | 43,2 |
+| YOLO26s, 39 foto | `runs/train/k10_seed0_yolo26s/weights/last.pt` | 31,5 |
+| YOLO26s, 109 foto | `runs/train/k30_seed0_yolo26s/weights/last.pt` | 40,3 |
+| YOLO26s, 4.986 foto | `runs/train/full_seed0_yolo26s/weights/best.pt` | 61,0 |
+
+1. **Benda APD, "Pekerja di atap gedung".** Baris YOLOE-26s menunjukkan 3, 6, 6 APD; baris YOLO26s 2, 5, 6. Pada 39
+   foto contoh, YOLOE-26s menemukan 6 APD dan YOLO26s hanya 2, dan panel kanan menuliskan bedanya. Tanpa contoh,
+   detektor sudah menemukan helm dan rompi, tetapi hampir tidak menemukan bagian tubuh (recall bagian tubuh terbuka 6,4%).
 2. **Kepatuhan pekerja, "Tiga pekerja proyek".** Kartu menunjukkan 1/3, 3/3, 3/3, lalu 0/2 pekerja patuh. Pada 4.986 foto berlabel YOLO26 menyatakan "Tanpa helm" karena helm di foto ini hanya mendapat
    skor 0,13 dan 0,002. Ini contoh nyata hasil uji lintas dataset: YOLO26s turun ke 32,0 mAP50 di Construction-PPE,
    sedangkan bobot open-vocabulary lebih tahan pindah domain.
